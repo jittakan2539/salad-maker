@@ -1,0 +1,36 @@
+import mongoose, { Document, Schema, Model } from "mongoose";
+
+//กำหนดประเภทของค่าข้างใน
+export interface IRecipes extends Document {
+	ingredientDetail: { ingredientId: string; quantity: number }[];
+	createOn: Date;
+	deleteOn: Date;
+}
+
+const RecipesSchema: Schema = new mongoose.Schema(
+	{
+		ingredientDetail: [
+			{
+				ingredientId: {
+					type: mongoose.Schema.Types.ObjectId,
+					ref: "Ingredients",
+					required: true,
+				},
+				quantity: { type: Number, required: true, min: 0 },
+			},
+		],
+		createOn: { type: Date, default: Date.now },
+		deleteOn: { type: Date, default: Date.now },
+	},
+	{
+		timestamps: true, // Automatically adds createdAt and updatedAt fields
+	}
+);
+
+// Create the Recipe model from the schema
+const Recipes: Model<IRecipes> = mongoose.model<IRecipes>(
+	"Recipes",
+	RecipesSchema
+);
+
+export default Recipes;
