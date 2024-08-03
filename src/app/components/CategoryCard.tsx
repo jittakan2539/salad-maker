@@ -1,17 +1,26 @@
+import Image from "next/image";
 import React from "react";
 
-export default function CategoryCard() {
-	const categories: Category[] = [];
-
-	return (
-		<section className="flex flex-col gap-8">
-			<h2 className="font-extrabold text-neutral-700 text-xl">
-				Select Category
-			</h2>
-			<div className="bg-white w-40 h-40 rounded-xl flex flex-col items-center p-3">
-				<img src="" alt="" />
-				<p className="text-neutral-400">Names</p>
-			</div>
-		</section>
-	);
+interface CategoryCardProps {
+	image: string;
+	category: string;
 }
+
+const CategoryCard: React.FC<CategoryCardProps> = ({ image, category }) => {
+	return (
+		<div className="bg-white w-40 h-40 rounded-xl flex flex-col gap-2 items-center p-3 transition-transform duration-300 ease-in-out transform hover:scale-105 cursor-pointer">
+			<picture className="relative w-24 h-24">
+				<Image
+					src={image}
+					alt={category}
+					layout="fill"
+					objectFit="cover"
+					className="rounded-full "
+				/>
+			</picture>
+			<h3 className="text-neutral-400 text-center">{category}</h3>
+		</div>
+	);
+};
+
+export default CategoryCard;

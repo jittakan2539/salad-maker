@@ -10,6 +10,7 @@ const config: Config = {
 		extend: {
 			fontFamily: {
 				sans: ["Poppins", "sans-serif"],
+				sarabun: ["Sarabun", "sans-serif"],
 			},
 			colors: {
 				orange: "#FBB602",
