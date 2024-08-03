@@ -60,3 +60,53 @@ export async function DELETE(
 		}
 	}
 }
+
+export async function PATCH(
+	request: NextRequest,
+	{ params }: { params: { recipeId: string } }
+) {
+	try {
+		await dbConnect();
+
+		const { recipeId } = params;
+
+		const { ingredientDetail } = await request.json();
+
+		if (!ingredientDetail || !Array.isArray(ingredientDetail)) {
+			return NextResponse.json(
+				{ error: "Invalid ingredient detail format" },
+				{ status: 400 }
+			);
+		}
+
+		const recipe = await Recipes.findById(recipeId);
+
+		if (!recipe) {
+			return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
+		}
+
+		ingredientDetail.forEach(({ ingredientId, quantity }) => {
+			const checkIngredient = recipe.ingredientDetail.find(
+				(ingredient) => ingredient.ingredientId.toString() === ingredientId
+			);
+
+			if (checkIngredient) {
+				checkIngredient.quantity = quantity;
+			} else {
+				recipe.ingredientDetail.push({ ingredientId, quantity });
+			}
+		});
+
+		await recipe.save();
+
+		return NextResponse.json({
+			message: `Recipe with ID${recipeId} updated successfully.`,
+		});
+	} catch (error) {
+		console.error("Failed to update recipe:", error);
+		return NextResponse.json(
+			{ error: "Failed to update recipe recipe" },
+			{ status: 500 }
+		);
+	}
+}
