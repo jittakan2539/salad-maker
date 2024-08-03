@@ -38,7 +38,6 @@ export async function POST(request: NextRequest) {
 	}
 }
 
-//get all recipes
 export async function GET(request: NextRequest) {
 	try {
 		await dbConnect();
@@ -55,5 +54,3 @@ export async function GET(request: NextRequest) {
 		);
 	}
 }
-
-//get recipe by ID

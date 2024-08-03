@@ -28,9 +28,7 @@ const RecipesSchema: Schema = new mongoose.Schema(
 );
 
 // Create the Recipe model from the schema
-const Recipes: Model<IRecipes> = mongoose.model<IRecipes>(
-	"Recipes",
-	RecipesSchema
-);
+const Recipes: Model<IRecipes> =
+	mongoose.models.Recipes || mongoose.model<IRecipes>("Recipes", RecipesSchema);
 
 export default Recipes;
