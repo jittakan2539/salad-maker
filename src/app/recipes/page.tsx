@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function page() {
+export default function Recipe() {
 	return (
 		<main className="flex">
 			<nav className="bg-white w-1/5 h-screen flex flex-col items-center p-10 overflow-hidden gap-20">
