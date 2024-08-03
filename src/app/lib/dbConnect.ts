@@ -1,13 +1,14 @@
 import mongoose from "mongoose";
 
-const connection: { isConnected?: number } = {};
-
-export async function dbConnect() {
-	if (connection.isConnected) {
-		return;
+const connectMongoDb = async () => {
+	try {
+		await mongoose.connect(
+			"mongodb+srv://jittakan2539:ZI4gLq9vS0vqxfWk@salad-maker.qbj4vjr.mongodb.net/salad-maker"
+		);
+		console.log("database connected");
+	} catch (error) {
+		console.error(error);
 	}
+};
 
-	const db = await mongoose.connect(process.env.DATABASE_URI!);
-
-	connection.isConnected = db.connections[0].readyState;
-}
+export default connectMongoDb;

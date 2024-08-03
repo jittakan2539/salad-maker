@@ -9,7 +9,7 @@ export interface IIngredients extends Document {
 }
 
 // Create the schema for the Ingredient document
-const IngredientsSchema: Schema<IIngredients> = new mongoose.Schema({
+const ingredientsSchema: Schema<IIngredients> = new mongoose.Schema({
 	ingredient: {
 		type: String,
 		required: true,
@@ -30,9 +30,8 @@ const IngredientsSchema: Schema<IIngredients> = new mongoose.Schema({
 });
 
 // Create the Ingredient model from the schema
-const Ingredients: Model<IIngredients> = mongoose.model<IIngredients>(
-	"Ingredients",
-	IngredientsSchema
-);
+const Ingredients: Model<IIngredients> =
+	mongoose.models.Ingredients ||
+	mongoose.model<IIngredients>("Ingredients", ingredientsSchema);
 
 export default Ingredients;
