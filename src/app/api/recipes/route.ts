@@ -7,7 +7,22 @@ export async function POST(request: NextRequest) {
 	try {
 		await dbConnect();
 
-		const { ingredientDetail } = await request.json();
+		const { recipeName, ingredientDetail } = await request.json();
+
+		if (!recipeName) {
+			return NextResponse.json(
+				{ error: "recipe name is required" },
+				{ status: 400 }
+			);
+		}
+
+		const alreadyExistRecipe = await Recipes.findOne({ recipeName });
+		if (alreadyExistRecipe) {
+			return NextResponse.json(
+				{ error: `A recipe with the name ${recipeName} already exists.` },
+				{ status: 400 }
+			);
+		}
 
 		for (let ingredient of ingredientDetail) {
 			const ingredientExists = await Ingredients.exists({
@@ -24,7 +39,7 @@ export async function POST(request: NextRequest) {
 			}
 		}
 
-		const newRecipe = new Recipes({ ingredientDetail });
+		const newRecipe = new Recipes({ recipeName, ingredientDetail });
 
 		await newRecipe.save();
 

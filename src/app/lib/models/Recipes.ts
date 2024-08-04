@@ -2,6 +2,7 @@ import mongoose, { Document, Schema, Model } from "mongoose";
 
 //กำหนดประเภทของค่าข้างใน
 export interface IRecipes extends Document {
+	recipeName: string;
 	ingredientDetail: { ingredientId: string; quantity: number }[];
 	createOn: Date;
 	deleteOn: Date;
@@ -9,6 +10,7 @@ export interface IRecipes extends Document {
 
 const RecipesSchema: Schema = new mongoose.Schema(
 	{
+		recipeName: { type: String, required: true },
 		ingredientDetail: [
 			{
 				ingredientId: {
