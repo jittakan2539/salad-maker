@@ -37,6 +37,7 @@ const categoryList: Category[] = [
 
 export default function Home() {
 	const [ingredientList, setIngredientList] = useState<Ingredient[]>([]);
+	const [selectCategories, setSelectCategories] = useState<string[]>([]);
 
 	async function getQueryIngredients() {
 		try {
@@ -51,6 +52,16 @@ export default function Home() {
 	useEffect(() => {
 		getQueryIngredients();
 	}, []);
+
+	const handleCategoryClick = (category: string) => {
+		setSelectCategories((prevSelectedCategories) => {
+			return prevSelectedCategories.includes(category)
+				? prevSelectedCategories.filter(
+						(checkCategory) => checkCategory !== category
+				  )
+				: [...prevSelectedCategories, category];
+		});
+	};
 
 	return (
 		<div className="flex">
@@ -113,6 +124,8 @@ export default function Home() {
 									key={category.id}
 									image={category.image}
 									category={category.category}
+									isSelected={selectCategories.includes(category.category)}
+									onClick={() => handleCategoryClick(category.category)}
 								/>
 							))}
 						</div>
