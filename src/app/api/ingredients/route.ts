@@ -6,12 +6,19 @@ export async function GET(request: NextRequest) {
 	try {
 		await dbConnect();
 
-		const allIngredients = await Ingredients.find();
-		console.log(allIngredients);
+		const { searchParams } = new URL(request.url);
+		const categoriesParam = searchParams.get("category");
+		const categories = categoriesParam ? categoriesParam.split(",") : [];
 
-		return NextResponse.json(allIngredients);
+		// Create the query object
+		const query =
+			categories.length > 0 ? { category: { $in: categories } } : {};
+
+		const ingredientsByCategory = await Ingredients.find(query);
+
+		return NextResponse.json(ingredientsByCategory);
 	} catch (error) {
-		console.error("Failed to fetch ingredients:", error);
+		console.log("Failed to fetch ingredients", error);
 		return NextResponse.json(
 			{ error: "Failed to fetch ingredients" },
 			{ status: 500 }

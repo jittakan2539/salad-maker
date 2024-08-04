@@ -25,11 +25,11 @@ interface Category {
 
 const categoryList: Category[] = [
 	{
-		id: "vegetables",
+		id: "vegetable",
 		image: "/images/green-leaf-lettuce.jpg",
-		category: "vegetables",
+		category: "vegetable",
 	},
-	{ id: "fruits", image: "/images/mix-berries.png", category: "fruits" },
+	{ id: "fruit", image: "/images/mix-berries.png", category: "fruit" },
 	{ id: "topping", image: "/images/cashew-nut.png", category: "toppings" },
 	{ id: "protein", image: "/images/grilled-beef.png", category: "protein" },
 	{ id: "dressing", image: "/images/cream-dressing.jpg", category: "dressing" },
@@ -39,9 +39,13 @@ export default function Home() {
 	const [ingredientList, setIngredientList] = useState<Ingredient[]>([]);
 	const [selectCategories, setSelectCategories] = useState<string[]>([]);
 
-	async function getQueryIngredients() {
+	async function getQueryIngredients(categories: string[]) {
 		try {
-			const response = await axios.get("/api/ingredients");
+			const categoryQuery = categories.length
+				? `category=${categories.join(",")}`
+				: "";
+
+			const response = await axios.get(`/api/ingredients?${categoryQuery}`);
 			const { data } = response;
 			setIngredientList(data);
 		} catch (error) {
@@ -50,16 +54,20 @@ export default function Home() {
 	}
 
 	useEffect(() => {
-		getQueryIngredients();
-	}, []);
+		getQueryIngredients(selectCategories);
+	}, [selectCategories]);
 
 	const handleCategoryClick = (category: string) => {
 		setSelectCategories((prevSelectedCategories) => {
-			return prevSelectedCategories.includes(category)
+			const newCategories = prevSelectedCategories.includes(category)
 				? prevSelectedCategories.filter(
 						(checkCategory) => checkCategory !== category
 				  )
 				: [...prevSelectedCategories, category];
+
+			getQueryIngredients(newCategories);
+
+			return newCategories;
 		});
 	};
 
@@ -111,9 +119,7 @@ export default function Home() {
 					</figure>
 				</header>
 
-				{/* -------------ส่วนของ main---------- */}
 				<main className="flex-1">
-					{/* -------------ส่วนเลือก category---------- */}
 					<section className="flex flex-col gap-8 mb-8">
 						<h2 className="font-extrabold text-neutral-700 text-xl">
 							Select Category
@@ -131,13 +137,12 @@ export default function Home() {
 						</div>
 					</section>
 
-					{/* -------------ส่วนเลือก ingredients---------- */}
 					<section className="my-8">
 						<h2 className="font-extrabold text-neutral-700 text-xl mb-8">
 							Choose your ingredients to make a salad
 						</h2>
 						<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-6">
-							{Array.isArray(ingredientList) && ingredientList.length > 0 ? (
+							{ingredientList.length > 0 ? (
 								ingredientList.map((ingredient) => (
 									<IngredientCard
 										key={ingredient._id}
@@ -152,10 +157,10 @@ export default function Home() {
 				</main>
 
 				<section className="bg-white flex justify-between items-center p-4 mt-8">
-					<caption className="flex gap-5">
+					<div className="flex gap-5">
 						<p>3</p>
 						<p>Your Ingredients</p>
-					</caption>
+					</div>
 					<button className="bg-blue-500 text-white px-4 py-2 rounded">
 						Create Recipe
 					</button>
