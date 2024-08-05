@@ -14,6 +14,7 @@ interface Recipe {
 	_id: string;
 	recipeName: string;
 	ingredientDetail: IngredientDetail[];
+	totalCalories: number;
 }
 
 export default function Recipe() {

@@ -26,7 +26,7 @@ const IngredientCard: FC<IngredientCardProps> = ({
 	console.log(ingredient);
 	return (
 		<>
-			<div className="items-start flex flex-col py-5  gap-4 bg-white rounded-xl px-5">
+			<div className="items-start flex flex-col py-5  gap-4 bg-white rounded-xl px-5 h-80">
 				<picture className="h-44 w-full relative overflow:hidden">
 					<Image
 						src={ingredient.image}

@@ -267,6 +267,7 @@ export default function Home() {
 					toggleOpenCreateRecipe={toggleOpenCreateRecipe}
 					openCreateRecipe={openCreateRecipe}
 					ingredientQuantities={ingredientQuantities}
+					totalCalories={totalCalories}
 				/>
 			</div>
 		</div>

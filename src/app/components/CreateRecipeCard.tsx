@@ -7,11 +7,13 @@ interface CreateRecipeCardProps {
 	toggleOpenCreateRecipe: () => void;
 	openCreateRecipe: boolean;
 	ingredientQuantities: { [key: string]: number };
+	totalCalories: number;
 }
 const CreateRecipeCard: React.FC<CreateRecipeCardProps> = ({
 	toggleOpenCreateRecipe,
 	openCreateRecipe,
 	ingredientQuantities,
+	totalCalories,
 }) => {
 	const [recipeName, setRecipeName] = useState("");
 	const [createRecipeSuccess, setCreateRecipeSuccess] = useState<
@@ -28,6 +30,7 @@ const CreateRecipeCard: React.FC<CreateRecipeCardProps> = ({
 			const response = await axios.post(`/api/recipes`, {
 				recipeName,
 				ingredientDetail,
+				totalCalories,
 			});
 
 			console.log("Recipe created successfully", response.data);
