@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import RecipeCard from "../components/RecipeCard";
 import axios from "axios";
+import CheckDeleteCard from "../components/CheckDeleteCard";
 
 interface IngredientDetail {
 	ingredientId: string;
@@ -19,6 +20,8 @@ interface Recipe {
 
 export default function Recipe() {
 	const [recipeList, setRecipeList] = useState<Recipe[]>([]);
+	const [openDeleteCard, setOpenDeleteCard] = useState(false);
+	const [selectedRecipeId, setSelectedRecipeId] = useState<string | null>(null);
 
 	async function getAllRecipes() {
 		try {
@@ -35,9 +38,14 @@ export default function Recipe() {
 		getAllRecipes();
 	}, []);
 
+	const toggleOpenDeleteCard = (id: string | null) => {
+		setSelectedRecipeId(id);
+		setOpenDeleteCard(!openDeleteCard);
+	};
+
 	return (
 		<div className="flex">
-			<nav className="bg-white w-1/5 flex flex-col items-center p-10 overflow-hidden gap-20 sticky top-0 h-screen">
+			<nav className="bg-white w-96 flex flex-col items-center p-10 overflow-hidden gap-20 sticky top-0 h-screen">
 				<h1 className="font-extrabold text-sky-950 text-4xl">
 					SALADMAKER<span className="text-orange">.</span>
 				</h1>
@@ -71,7 +79,12 @@ export default function Recipe() {
 					<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-6">
 						{recipeList.length > 0 ? (
 							recipeList.map((recipe) => (
-								<RecipeCard key={recipe._id} recipe={recipe} />
+								<RecipeCard
+									key={recipe._id}
+									recipe={recipe}
+									// onEditClick={() => toggleopenEdit(recipe._id)
+									onDeleteClick={() => toggleOpenDeleteCard(recipe._id)}
+								/>
 							))
 						) : (
 							<p className="text-xl font-bold text-neutral-600 w-full">
@@ -81,6 +94,11 @@ export default function Recipe() {
 					</div>
 				</main>
 			</section>
+			<CheckDeleteCard
+				toggleOpenDeleteCard={toggleOpenDeleteCard}
+				openDeleteCard={openDeleteCard}
+				selectedRecipeId={selectedRecipeId}
+			/>
 		</div>
 	);
 }

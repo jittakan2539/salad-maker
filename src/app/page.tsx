@@ -129,7 +129,7 @@ export default function Home() {
 
 	return (
 		<div className="flex">
-			<nav className="bg-white w-1/5 flex flex-col items-center p-10 overflow-hidden gap-20 sticky top-0 h-screen">
+			<nav className="bg-white w-96 flex flex-col items-center p-10 overflow-hidden gap-20 sticky top-0 h-screen">
 				<h1 className="font-extrabold text-sky-950 text-4xl">
 					SALADMAKER<span className="text-orange">.</span>
 				</h1>

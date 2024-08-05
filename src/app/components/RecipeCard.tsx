@@ -14,17 +14,17 @@ interface Recipe {
 	totalCalories: number;
 }
 
-// interface IngredientCardProps {
-// 	ingredient: Ingredient;
-// 	quantity: number;
-// 	onPlusClick: () => void;
-// 	onMinusClick: () => void;
-// }
 interface RecipeCardProps {
 	recipe: Recipe;
+	// onEditClick: () => void;
+	onDeleteClick: () => void;
 }
 
-const RecipeCard: FC<RecipeCardProps> = ({ recipe }) => {
+const RecipeCard: FC<RecipeCardProps> = ({
+	recipe,
+	// onEditClick,
+	onDeleteClick,
+}) => {
 	return (
 		<>
 			<article className="items-start flex flex-col py-5 justify-between  gap-4 bg-orange rounded-xl px-5 h-80">
@@ -37,11 +37,17 @@ const RecipeCard: FC<RecipeCardProps> = ({ recipe }) => {
 					</p>
 				</div>
 				<div className="flex w-full gap-3">
-					<button className="bg-white flex gap-2 items-center justify-center w-1/2 p-2 rounded-3xl text-lg  font-bold ">
+					<button
+						className="bg-white flex gap-2 items-center justify-center w-1/2 p-2 rounded-3xl text-lg  font-bold onClick"
+						onClick={onDeleteClick}
+					>
 						<FaTrash className="text-red-500" />
 						<p>Delete</p>
 					</button>
-					<button className="bg-white flex gap-2 items-center justify-center w-1/2 p-2 rounded-3xl text-lg  font-bold">
+					<button
+						className="bg-white flex gap-2 items-center justify-center w-1/2 p-2 rounded-3xl text-lg  font-bold"
+						// onClick={onEditClick}
+					>
 						<FaEdit />
 						<p>Edit</p>
 					</button>
