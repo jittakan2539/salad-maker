@@ -38,6 +38,9 @@ const categoryList: Category[] = [
 export default function Home() {
 	const [ingredientList, setIngredientList] = useState<Ingredient[]>([]);
 	const [selectCategories, setSelectCategories] = useState<string[]>([]);
+	const [ingredientQuantities, setIngredientQuantities] = useState<{
+		[key: string]: number;
+	}>({});
 
 	async function getQueryIngredients(categories: string[]) {
 		try {
@@ -68,6 +71,23 @@ export default function Home() {
 			getQueryIngredients(newCategories);
 
 			return newCategories;
+		});
+	};
+
+	const handleIngredientPlusClick = (id: string) => {
+		setIngredientQuantities((prevQuantities) => ({
+			...prevQuantities,
+			[id]: (prevQuantities[id] || 0) + 1,
+		}));
+	};
+
+	const handleIngredientMinusClick = (id: string) => {
+		setIngredientQuantities((prevQuantities) => {
+			const newQuantities = { ...prevQuantities };
+			if (newQuantities[id] > 0) {
+				newQuantities[id] -= 1;
+			}
+			return newQuantities;
 		});
 	};
 
@@ -147,6 +167,13 @@ export default function Home() {
 									<IngredientCard
 										key={ingredient._id}
 										ingredient={ingredient}
+										quantity={ingredientQuantities[ingredient._id] || 0}
+										onPlusClick={() =>
+											handleIngredientPlusClick(ingredient._id)
+										}
+										onMinusClick={() =>
+											handleIngredientMinusClick(ingredient._id)
+										}
 									/>
 								))
 							) : (
@@ -161,7 +188,7 @@ export default function Home() {
 						<p>3</p>
 						<p>Your Ingredients</p>
 					</div>
-					<button className="bg-blue-500 text-white px-4 py-2 rounded">
+					<button className="bg-green-500 text-white px-4 py-2 rounded">
 						Create Recipe
 					</button>
 				</section>

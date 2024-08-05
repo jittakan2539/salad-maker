@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Image from "next/image";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaMinus } from "react-icons/fa";
 
 interface Ingredient {
 	_id: string;
@@ -12,9 +12,17 @@ interface Ingredient {
 
 interface IngredientCardProps {
 	ingredient: Ingredient;
+	quantity: number;
+	onPlusClick: () => void;
+	onMinusClick: () => void;
 }
 
-const IngredientCard: FC<IngredientCardProps> = ({ ingredient }) => {
+const IngredientCard: FC<IngredientCardProps> = ({
+	ingredient,
+	quantity,
+	onPlusClick,
+	onMinusClick,
+}) => {
 	console.log(ingredient);
 	return (
 		<>
@@ -36,9 +44,31 @@ const IngredientCard: FC<IngredientCardProps> = ({ ingredient }) => {
 						{ingredient.calories} <span className="text-orange ">Cal</span>
 					</p>
 				</caption>
-				<div className="ml-auto bg-orange rounded-full p-3">
-					<FaPlus className=" text-lg text-white" />
-				</div>
+
+				{quantity > 0 ? (
+					<span className="ml-auto flex gap-4 items-center">
+						<button
+							className=" bg-orange rounded-full p-3"
+							onClick={onMinusClick}
+						>
+							<FaMinus className=" text-lg text-white" />
+						</button>
+						<p className="font-extrabold text-xl">{quantity}</p>
+						<button
+							className="ml-auto bg-orange rounded-full p-3"
+							onClick={onPlusClick}
+						>
+							<FaPlus className=" text-lg text-white" />
+						</button>
+					</span>
+				) : (
+					<button
+						className="ml-auto bg-orange rounded-full p-3"
+						onClick={onPlusClick}
+					>
+						<FaPlus className=" text-lg text-white" />
+					</button>
+				)}
 			</div>
 		</>
 	);
