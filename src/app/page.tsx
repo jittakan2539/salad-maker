@@ -60,6 +60,11 @@ export default function Home() {
 		getQueryIngredients(selectCategories);
 	}, [selectCategories]);
 
+	// ไว้ check ว่าเก็บค่า ingredientQuantities
+	/* useEffect(() => {
+		console.log("Ingredient quantities updated:", ingredientQuantities);
+	}, [ingredientQuantities]); */
+
 	const handleCategoryClick = (category: string) => {
 		setSelectCategories((prevSelectedCategories) => {
 			const newCategories = prevSelectedCategories.includes(category)
@@ -97,18 +102,28 @@ export default function Home() {
 				<h1 className="font-extrabold text-sky-950 text-4xl">
 					SALADMAKER<span className="text-orange">.</span>
 				</h1>
-				<ul className="space-y-4">
+				<ul className="space-y-10 flex flex-col items-center">
 					<li>
-						<Link href="/">Salad Maker</Link>
+						<Link href="/" className="font-medium text-2xl text-slate-500">
+							<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white">
+								{" "}
+								Salad Maker
+							</div>
+						</Link>
 					</li>
 					<li>
-						<Link href="/recipes">Recipes</Link>
+						<Link
+							href="/recipes"
+							className="font-medium text-2xl text-slate-500"
+						>
+							Recipes
+						</Link>
 					</li>
 				</ul>
 			</nav>
 
-			<div className="flex-1 flex flex-col p-10">
-				<header className="flex flex-col mb-8">
+			<div className="flex-1 flex flex-col pt-10 ">
+				<header className="flex flex-col mb-8 px-10">
 					<div className="flex items-center justify-between mb-8">
 						<h1 className="font-extrabold text-neutral-800 text-4xl">
 							Let&apos;s Create...your own salad!!!
@@ -139,7 +154,7 @@ export default function Home() {
 					</figure>
 				</header>
 
-				<main className="flex-1">
+				<main className="flex-1 px-10">
 					<section className="flex flex-col gap-8 mb-8">
 						<h2 className="font-extrabold text-neutral-700 text-xl">
 							Select Category
@@ -177,18 +192,24 @@ export default function Home() {
 									/>
 								))
 							) : (
-								<p>No ingredients available.</p>
+								<p className="text-xl font-bold text-neutral-600 w-full">
+									No ingredients available or loading ingredients...
+								</p>
 							)}
 						</div>
 					</section>
 				</main>
 
-				<section className="bg-white flex justify-between items-center p-4 mt-8">
-					<div className="flex gap-5">
-						<p>3</p>
-						<p>Your Ingredients</p>
+				<section className="bg-white flex justify-between items-stretch p-4 mt-8 w-full gap-8">
+					<div className=" md:w-4/5 flex gap-5 items-center bg-orange p-3 rounded-xl pl-6">
+						<div className="bg-white w-12 h-12 flex items-center justify-center rounded-xl">
+							<p className="font-medium text-2xl text-orange">3</p>
+						</div>
+						<p className="font-semibold text-2xl text-white">
+							Your Ingredients
+						</p>
 					</div>
-					<button className="bg-green-500 text-white px-4 py-2 rounded">
+					<button className="flex  items-center justify-center  md:w-1/5 bg-green-500 font-bold text-2xl text-white p-4 rounded-xl hover:bg-green-600 transition duration-300">
 						Create Recipe
 					</button>
 				</section>
