@@ -55,7 +55,7 @@ export default function Home() {
 			const { data } = response;
 			setIngredientList(data);
 		} catch (error) {
-			console.log("Failed to get data:", error);
+			console.log("Failed to get ingredient data:", error);
 		}
 	}
 

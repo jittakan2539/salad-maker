@@ -43,6 +43,7 @@ const CreateRecipeCard: React.FC<CreateRecipeCardProps> = ({
 		toggleOpenCreateRecipe();
 		setCreateRecipeSuccess(null);
 		setCountdown(null);
+		setRecipeName("");
 	}, [toggleOpenCreateRecipe]);
 
 	useEffect(() => {
@@ -60,7 +61,7 @@ const CreateRecipeCard: React.FC<CreateRecipeCardProps> = ({
 		}, 1000);
 
 		return () => clearTimeout(timer);
-	}, [countdown]);
+	}, [countdown, closeRecipeandClearNotify]);
 
 	return (
 		<>
@@ -94,9 +95,6 @@ const CreateRecipeCard: React.FC<CreateRecipeCardProps> = ({
 								<span className="flex flex-col items-center">
 									<p className="font-bold text-lg text-red-500">
 										Unable to create new recipe <br />
-									</p>
-									<p className="font-normal text-md text-neutral-500">
-										Name already in use <br />
 									</p>
 								</span>
 							)}
