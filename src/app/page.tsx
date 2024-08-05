@@ -41,6 +41,7 @@ export default function Home() {
 	const [ingredientQuantities, setIngredientQuantities] = useState<{
 		[key: string]: number;
 	}>({});
+	const [totalCalories, setTotalCalories] = useState<number>(0);
 
 	async function getQueryIngredients(categories: string[]) {
 		try {
@@ -64,6 +65,21 @@ export default function Home() {
 	/* useEffect(() => {
 		console.log("Ingredient quantities updated:", ingredientQuantities);
 	}, [ingredientQuantities]); */
+
+	useEffect(() => {
+		const calculateTotalCalories = () => {
+			let calories = 0;
+			for (const ingredient of ingredientList) {
+				const quantity = ingredientQuantities[ingredient._id] || 0;
+				if (quantity > 0) {
+					calories = calories + ingredient.calories * quantity;
+				}
+			}
+			setTotalCalories(calories);
+		};
+
+		calculateTotalCalories();
+	}, [ingredientQuantities, ingredientList]);
 
 	const handleCategoryClick = (category: string) => {
 		setSelectCategories((prevSelectedCategories) => {
@@ -94,6 +110,15 @@ export default function Home() {
 			}
 			return newQuantities;
 		});
+	};
+
+	const allQuantities = Object.values(ingredientQuantities).reduce(
+		(accumulator, quantity) => accumulator + quantity,
+		0
+	);
+
+	const resetQuantities = () => {
+		setIngredientQuantities({});
 	};
 
 	return (
@@ -129,12 +154,12 @@ export default function Home() {
 							Let&apos;s Create...your own salad!!!
 						</h1>
 
-						<div id="search-container" className="relative w-1/3">
-							<span className="absolute inset-y-0 left-0 flex items-center px-3 cursor-pointer">
+						<div id="search-container" className="relative w-1/3 ">
+							<span className="absolute inset-y-0 left-0 flex items-center px-5 cursor-pointer">
 								<FaMagnifyingGlass className="text-orange" />
 							</span>
 							<input
-								className="input-createAccount w-full pl-8 py-2 border border-gray-300 rounded"
+								className="input-createAccount w-full pl-10 py-2 border border-gray-300 rounded-lg"
 								name="search"
 								type="text"
 								placeholder="Search ingredients to make a salad"
@@ -172,7 +197,7 @@ export default function Home() {
 						</div>
 					</section>
 
-					<section className="my-8">
+					<section className="my-8 ">
 						<h2 className="font-extrabold text-neutral-700 text-xl mb-8">
 							Choose your ingredients to make a salad
 						</h2>
@@ -200,16 +225,32 @@ export default function Home() {
 					</section>
 				</main>
 
-				<section className="bg-white flex justify-between items-stretch p-4 mt-8 w-full gap-8">
-					<div className=" md:w-4/5 flex gap-5 items-center bg-orange p-3 rounded-xl pl-6">
-						<div className="bg-white w-12 h-12 flex items-center justify-center rounded-xl">
-							<p className="font-medium text-2xl text-orange">3</p>
+				<section className="bg-white flex justify-between items-stretch p-4 mt-8 w-full gap-8 sticky bottom-0">
+					<div className=" md:w-4/6 flex gap-5 items-center justify-between bg-orange p-3 px-5 rounded-xl pl-6">
+						<div className="flex items-center gap-5 justify-between">
+							<div className="bg-white w-12 h-12 flex items-center justify-center rounded-xl">
+								<p className="font-medium text-2xl text-orange">
+									{allQuantities}
+								</p>
+							</div>
+							<p className="font-semibold text-2xl text-white">
+								Your Ingredients
+							</p>
 						</div>
-						<p className="font-semibold text-2xl text-white">
-							Your Ingredients
+						<p className="font-semibold text-2xl text-white pr-5">
+							{totalCalories} Cal
 						</p>
 					</div>
-					<button className="flex  items-center justify-center  md:w-1/5 bg-green-500 font-bold text-2xl text-white p-4 rounded-xl hover:bg-green-600 transition duration-300">
+					<button
+						onClick={resetQuantities}
+						className="flex  items-center justify-center  md:w-1/6 bg-red-500 font-bold text-2xl text-white p-4 rounded-xl hover:bg-red-600 transition duration-300"
+					>
+						Reset
+					</button>
+					<button
+						// onClick={openCreateRecipe}
+						className="flex  items-center justify-center  md:w-1/6 bg-green-500 font-bold text-2xl text-white p-4 rounded-xl hover:bg-green-600 transition duration-300"
+					>
 						Create Recipe
 					</button>
 				</section>
