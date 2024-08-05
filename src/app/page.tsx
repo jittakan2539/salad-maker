@@ -136,8 +136,7 @@ export default function Home() {
 				<ul className="space-y-10 flex flex-col items-center">
 					<li>
 						<Link href="/" className="font-medium text-2xl text-slate-500">
-							<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white">
-								{" "}
+							<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
 								Salad Maker
 							</div>
 						</Link>
@@ -147,7 +146,9 @@ export default function Home() {
 							href="/recipes"
 							className="font-medium text-2xl text-slate-500"
 						>
-							Recipes
+							<div className="p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
+								Recipes
+							</div>
 						</Link>
 					</li>
 				</ul>
