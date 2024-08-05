@@ -268,6 +268,7 @@ export default function Home() {
 					openCreateRecipe={openCreateRecipe}
 					ingredientQuantities={ingredientQuantities}
 					totalCalories={totalCalories}
+					resetQuantities={resetQuantities}
 				/>
 			</div>
 		</div>

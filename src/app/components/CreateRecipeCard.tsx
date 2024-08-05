@@ -8,12 +8,14 @@ interface CreateRecipeCardProps {
 	openCreateRecipe: boolean;
 	ingredientQuantities: { [key: string]: number };
 	totalCalories: number;
+	resetQuantities: () => void;
 }
 const CreateRecipeCard: React.FC<CreateRecipeCardProps> = ({
 	toggleOpenCreateRecipe,
 	openCreateRecipe,
 	ingredientQuantities,
 	totalCalories,
+	resetQuantities,
 }) => {
 	const [recipeName, setRecipeName] = useState("");
 	const [createRecipeSuccess, setCreateRecipeSuccess] = useState<
@@ -36,6 +38,7 @@ const CreateRecipeCard: React.FC<CreateRecipeCardProps> = ({
 			console.log("Recipe created successfully", response.data);
 			setCreateRecipeSuccess(true);
 			setCountdown(8);
+			resetQuantities();
 		} catch (error) {
 			console.log("Error creating a new recipe:", error);
 			setCreateRecipeSuccess(false);

@@ -76,28 +76,34 @@ export default function Recipe() {
 					<h2 className="font-extrabold text-neutral-700 text-xl">
 						Your Recipe
 					</h2>
-					<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-6">
+
+					<section>
 						{recipeList.length > 0 ? (
-							recipeList.map((recipe) => (
-								<RecipeCard
-									key={recipe._id}
-									recipe={recipe}
-									// onEditClick={() => toggleopenEdit(recipe._id)
-									onDeleteClick={() => toggleOpenDeleteCard(recipe._id)}
-								/>
-							))
+							<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-6">
+								{recipeList.map((recipe) => (
+									<RecipeCard
+										key={recipe._id}
+										recipe={recipe}
+										// onEditClick={() => toggleOpenEdit(recipe._id)}
+										onDeleteClick={() => toggleOpenDeleteCard(recipe._id)}
+									/>
+								))}
+							</div>
 						) : (
-							<p className="text-xl font-bold text-neutral-600 w-full">
-								No ingredients available or loading ingredients...
-							</p>
+							<div className="w-full flex justify-center pt-4">
+								<p className="text-xl font-bold text-neutral-600 text-center">
+									No ingredients available or loading ingredients...
+								</p>
+							</div>
 						)}
-					</div>
+					</section>
 				</main>
 			</section>
 			<CheckDeleteCard
 				toggleOpenDeleteCard={toggleOpenDeleteCard}
 				openDeleteCard={openDeleteCard}
 				selectedRecipeId={selectedRecipeId}
+				refreshRecipes={getAllRecipes}
 			/>
 		</div>
 	);
