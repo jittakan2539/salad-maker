@@ -1,9 +1,9 @@
 import mongoose, { Document, Schema, Model } from "mongoose";
 
-//กำหนดประเภทของค่าข้างใน
 export interface IRecipes extends Document {
 	recipeName: string;
 	ingredientDetail: { ingredientId: string; quantity: number }[];
+	totalCalories: number;
 	createOn: Date;
 	deleteOn: Date;
 }
@@ -23,6 +23,7 @@ const RecipesSchema: Schema = new mongoose.Schema(
 		],
 		createOn: { type: Date, default: Date.now },
 		deleteOn: { type: Date, default: Date.now },
+		totalCalories: { type: Number, required: true },
 	},
 	{
 		timestamps: true, // Automatically adds createdAt and updatedAt fields

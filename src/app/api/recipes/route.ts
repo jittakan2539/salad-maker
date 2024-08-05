@@ -7,7 +7,8 @@ export async function POST(request: NextRequest) {
 	try {
 		await dbConnect();
 
-		const { recipeName, ingredientDetail } = await request.json();
+		const { recipeName, ingredientDetail, totalCalories } =
+			await request.json();
 
 		if (!recipeName) {
 			return NextResponse.json(
@@ -39,7 +40,11 @@ export async function POST(request: NextRequest) {
 			}
 		}
 
-		const newRecipe = new Recipes({ recipeName, ingredientDetail });
+		const newRecipe = new Recipes({
+			recipeName,
+			ingredientDetail,
+			totalCalories,
+		});
 
 		await newRecipe.save();
 
