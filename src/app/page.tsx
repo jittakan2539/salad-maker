@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import CategoryCard from "@/app/components/CategoryCard";
 import IngredientCard from "./components/IngredientCard";
+import CreateRecipeCard from "./components/CreateRecipeCard";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -42,6 +43,7 @@ export default function Home() {
 		[key: string]: number;
 	}>({});
 	const [totalCalories, setTotalCalories] = useState<number>(0);
+	const [openCreateRecipe, setOpenCreateRecipe] = useState(false);
 
 	async function getQueryIngredients(categories: string[]) {
 		try {
@@ -119,6 +121,10 @@ export default function Home() {
 
 	const resetQuantities = () => {
 		setIngredientQuantities({});
+	};
+
+	const toggleOpenCreateRecipe = () => {
+		setOpenCreateRecipe(!openCreateRecipe);
 	};
 
 	return (
@@ -225,35 +231,41 @@ export default function Home() {
 					</section>
 				</main>
 
-				<section className="bg-white flex justify-between items-stretch p-4 mt-8 w-full gap-8 sticky bottom-0">
-					<div className=" md:w-4/6 flex gap-5 items-center justify-between bg-orange p-3 px-5 rounded-xl pl-6">
-						<div className="flex items-center gap-5 justify-between">
-							<div className="bg-white w-12 h-12 flex items-center justify-center rounded-xl">
-								<p className="font-medium text-2xl text-orange">
-									{allQuantities}
+				{allQuantities > 0 && (
+					<section className="bg-white flex justify-between items-stretch p-4 mt-8 w-full gap-8 sticky bottom-0">
+						<div className=" md:w-4/6 flex gap-5 items-center justify-between bg-orange p-3 px-5 rounded-xl pl-6">
+							<div className="flex items-center gap-5 justify-between">
+								<div className="bg-white w-12 h-12 flex items-center justify-center rounded-xl">
+									<p className="font-medium text-2xl text-orange">
+										{allQuantities}
+									</p>
+								</div>
+								<p className="font-semibold text-2xl text-white">
+									Your Ingredients
 								</p>
 							</div>
-							<p className="font-semibold text-2xl text-white">
-								Your Ingredients
+							<p className="font-semibold text-2xl text-white pr-5">
+								{totalCalories} Cal
 							</p>
 						</div>
-						<p className="font-semibold text-2xl text-white pr-5">
-							{totalCalories} Cal
-						</p>
-					</div>
-					<button
-						onClick={resetQuantities}
-						className="flex  items-center justify-center  md:w-1/6 bg-red-500 font-bold text-2xl text-white p-4 rounded-xl hover:bg-red-600 transition duration-300"
-					>
-						Reset
-					</button>
-					<button
-						// onClick={openCreateRecipe}
-						className="flex  items-center justify-center  md:w-1/6 bg-green-500 font-bold text-2xl text-white p-4 rounded-xl hover:bg-green-600 transition duration-300"
-					>
-						Create Recipe
-					</button>
-				</section>
+						<button
+							onClick={resetQuantities}
+							className="flex  items-center justify-center  md:w-1/6 bg-red-500 font-bold text-2xl text-white p-4 rounded-xl hover:bg-red-600 transition duration-300"
+						>
+							Reset
+						</button>
+						<button
+							onClick={toggleOpenCreateRecipe}
+							className="flex  items-center justify-center  md:w-1/6 bg-green-500 font-bold text-2xl text-white p-4 rounded-xl hover:bg-green-600 transition duration-300"
+						>
+							Create Recipe
+						</button>
+					</section>
+				)}
+				<CreateRecipeCard
+					toggleOpenCreateRecipe={toggleOpenCreateRecipe}
+					openCreateRecipe={openCreateRecipe}
+				/>
 			</div>
 		</div>
 	);
