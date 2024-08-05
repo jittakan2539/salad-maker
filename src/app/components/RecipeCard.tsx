@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { FaTrash, FaEdit } from "react-icons/fa";
 
@@ -44,13 +45,13 @@ const RecipeCard: FC<RecipeCardProps> = ({
 						<FaTrash className="text-red-500" />
 						<p>Delete</p>
 					</button>
-					<button
-						className="bg-white flex gap-2 items-center justify-center w-1/2 p-2 rounded-3xl text-lg  font-bold"
-						// onClick={onEditClick}
+					<Link
+						href={`/edit-recipe/$recipe._id`}
+						className="bg-white flex gap-2 items-center justify-center w-1/2 p-2 rounded-3xl text-lg font-bold hover:cursor-pointer"
 					>
 						<FaEdit />
 						<p>Edit</p>
-					</button>
+					</Link>
 				</div>
 			</article>
 		</>
