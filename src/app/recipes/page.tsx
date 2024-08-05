@@ -6,18 +6,25 @@ import Link from "next/link";
 import RecipeCard from "../components/RecipeCard";
 import axios from "axios";
 
+interface IngredientDetail {
+	ingredientId: string;
+	quantity: number;
+}
 interface Recipe {
+	_id: string;
 	recipeName: string;
-	ingredientDetail: string[];
+	ingredientDetail: IngredientDetail[];
 }
 
 export default function Recipe() {
-	const [recipeList, setRecipeList] = useState<Recipe>([]);
+	const [recipeList, setRecipeList] = useState<Recipe[]>([]);
 
 	async function getAllRecipes() {
 		try {
 			const response = await axios.get(`/api/recipes`);
 			console.log(response);
+			const { data } = response;
+			setRecipeList(data);
 		} catch (error) {
 			console.log("Failed to get recipe data", error);
 		}
@@ -61,23 +68,15 @@ export default function Recipe() {
 						Your Recipe
 					</h2>
 					<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-6">
-						{/* {ingredientList.length > 0 ? (
-							ingredientList.map((ingredient) => (
-								<IngredientCard
-									key={ingredient._id}
-									ingredient={ingredient}
-									quantity={ingredientQuantities[ingredient._id] || 0}
-									onPlusClick={() => handleIngredientPlusClick(ingredient._id)}
-									onMinusClick={() =>
-										handleIngredientMinusClick(ingredient._id)
-									}
-								/>
+						{recipeList.length > 0 ? (
+							recipeList.map((recipe) => (
+								<RecipeCard key={recipe._id} recipe={recipe} />
 							))
 						) : (
 							<p className="text-xl font-bold text-neutral-600 w-full">
 								No ingredients available or loading ingredients...
 							</p>
-						)} */}
+						)}
 					</div>
 				</main>
 			</section>
