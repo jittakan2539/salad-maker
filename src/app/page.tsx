@@ -265,6 +265,7 @@ export default function Home() {
 				<CreateRecipeCard
 					toggleOpenCreateRecipe={toggleOpenCreateRecipe}
 					openCreateRecipe={openCreateRecipe}
+					ingredientQuantities={ingredientQuantities}
 				/>
 			</div>
 		</div>
