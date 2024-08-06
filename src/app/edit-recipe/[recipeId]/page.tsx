@@ -64,7 +64,19 @@ export default function EditRecipe({
 		}
 	};
 
-	// const calculateTotalCalories;
+	const calculateTotalCalories = () => {
+		if (recipe && recipe.ingredientDetail) {
+			const totalCalories = recipe.ingredientDetail.reduce(
+				(total, { ingredientId, quantity }) => {
+					return total + ingredientId.calories * quantity;
+				},
+				0
+			);
+			return totalCalories;
+		}
+
+		return 0;
+	};
 
 	return (
 		<div className="flex">
@@ -125,7 +137,8 @@ export default function EditRecipe({
 					<section className="flex justify-between">
 						<p className="font-semibold">Total Calorie</p>
 						<p className="font-semibold">
-							188 <span className="text-orange">Cal</span>
+							{calculateTotalCalories()}{" "}
+							<span className="text-orange">Cal</span>
 						</p>
 					</section>
 					<button
