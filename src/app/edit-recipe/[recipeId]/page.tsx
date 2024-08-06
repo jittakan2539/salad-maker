@@ -7,7 +7,7 @@ import EditRecipeCard from "@/app/components/EditRecipeCard";
 import { FaXmark } from "react-icons/fa6";
 
 interface Ingredient {
-	id: string;
+	_id: string;
 	ingredient: string;
 	image: string;
 	calories: number;
@@ -39,6 +39,7 @@ export default function EditRecipe({
 			const recipeWithIngredientData = recipeResponse.data;
 
 			setRecipe(recipeWithIngredientData);
+			console.log("Fetched recipe data:", recipeWithIngredientData);
 		} catch (error) {
 			console.error("Error fetching recipe data", error);
 		} finally {
@@ -51,6 +52,35 @@ export default function EditRecipe({
 			fetchRecipeData(params.recipeId);
 		}
 	}, [params.recipeId, fetchRecipeData]);
+
+	const handleIngredientPlusClick = (_id: string) => {
+		// console.log("Increasing quantity for ingredient ID:", id);
+		setRecipe((prevRecipe) => {
+			if (!prevRecipe) return prevRecipe;
+
+			const updatedIngredientDetail = prevRecipe.ingredientDetail.map((item) =>
+				item.ingredientId._id === _id
+					? { ...item, quantity: (item.quantity || 0) + 1 }
+					: item
+			);
+
+			return { ...prevRecipe, ingredientDetail: updatedIngredientDetail };
+		});
+	};
+
+	const handleIngredientMinusClick = (_id: string) => {
+		setRecipe((prevRecipe) => {
+			if (!prevRecipe) return prevRecipe;
+
+			const updatedIngredientDetail = prevRecipe.ingredientDetail.map((item) =>
+				item.ingredientId._id === _id && item.quantity > 0
+					? { ...item, quantity: item.quantity - 1 }
+					: item
+			);
+
+			return { ...prevRecipe, ingredientDetail: updatedIngredientDetail };
+		});
+	};
 
 	const handleUpdateRecipe = async () => {
 		if (recipe) {
@@ -125,9 +155,15 @@ export default function EditRecipe({
 						<div className="flex flex-col gap-4">
 							{recipe.ingredientDetail.map(({ ingredientId, quantity }) => (
 								<EditRecipeCard
-									key={ingredientId.id}
+									key={ingredientId._id}
 									ingredient={ingredientId}
 									quantity={quantity}
+									onPlusClick={() =>
+										handleIngredientPlusClick(ingredientId._id)
+									}
+									onMinusClick={() =>
+										handleIngredientMinusClick(ingredientId._id)
+									}
 								/>
 							))}
 						</div>

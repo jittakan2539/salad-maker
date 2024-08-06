@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
 interface Ingredient {
-	id: string;
+	_id: string;
 	ingredient: string;
 	image: string;
 	calories: number;
@@ -12,9 +12,16 @@ interface Ingredient {
 interface EditRecipeCardProps {
 	ingredient: Ingredient;
 	quantity: number;
+	onPlusClick: () => void;
+	onMinusClick: () => void;
 }
 
-const EditRecipeCard: FC<EditRecipeCardProps> = ({ ingredient, quantity }) => {
+const EditRecipeCard: FC<EditRecipeCardProps> = ({
+	ingredient,
+	quantity,
+	onPlusClick,
+	onMinusClick,
+}) => {
 	return (
 		<article className="flex items-center gap-4 p-4 border rounded-lg shadow-md">
 			<Image
@@ -29,11 +36,17 @@ const EditRecipeCard: FC<EditRecipeCardProps> = ({ ingredient, quantity }) => {
 					<h2 className="font-bold text-lg">{ingredient.ingredient}</h2>
 
 					<div className="flex gap-3 items-center">
-						<button className=" bg-orange w-6 h-6 flex items-center justify-center rounded-full p-1">
+						<button
+							onClick={onMinusClick}
+							className="bg-orange w-6 h-6 flex items-center justify-center rounded-full p-1"
+						>
 							<FaMinus className=" text-sm text-white" />
 						</button>
 						<p className="text-neutral-400">x {quantity}</p>
-						<button className=" bg-orange w-6 h-6 flex items-center justify-center rounded-full p-1">
+						<button
+							onClick={onPlusClick}
+							className="bg-orange w-6 h-6 flex items-center justify-center rounded-full p-1"
+						>
 							<FaPlus className=" text-sm text-white" />
 						</button>
 						<button className=" bg-red-500 rounded-xl p-1 px-3">

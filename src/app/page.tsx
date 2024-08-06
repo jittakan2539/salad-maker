@@ -63,11 +63,6 @@ export default function Home() {
 		getQueryIngredients(selectCategories);
 	}, [selectCategories]);
 
-	// ไว้ check ว่าเก็บค่า ingredientQuantities
-	/* useEffect(() => {
-		console.log("Ingredient quantities updated:", ingredientQuantities);
-	}, [ingredientQuantities]); */
-
 	useEffect(() => {
 		const calculateTotalCalories = () => {
 			let calories = 0;
