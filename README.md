@@ -30,10 +30,11 @@ npm run dev
    The main requirements are: -
 
    ✔️ Ingredients Page
-   = all ingredients are fetched and can be caegorized, and new recipes can be created, using the given ingredients.
-   ✔️ Recipes Page - the list of all recipes can be seen, and they can click to delete or edit each recipe
+        🔶 all ingredients are fetched and can be caegorized, and new recipes can be created, using the given ingredients.
+   ✔️ Recipes Page
+        🔶 the list of all recipes can be seen, and they can click to delete or edit each recipe
    ✔️ Edit Recipe Page
-   if users click "edit", I will redirect to Edit-Recipe, where they can change the ingredient quantity or delete them.
+        🔶if users click "edit", I will redirect to Edit-Recipe, where they can change the ingredient quantity or delete them.
 
 2. Design API and Database
 
@@ -46,5 +47,25 @@ Please refer to "https://drive.google.com/file/d/10xrXKo9kwOoOq-wliIkRpP61eQD9_l
         🔶 Recipes: will store the recipe name and ingredient detail: ingredientId (used to connect with) and the quantity
 
     🎁API: separated into three main
-        🔶 /api/ingredients -- fetch ingredients
-        🔶 /api/recipes     -- create new recipe, get all recipes
+        🔶 /api/ingredients          -- fetch ingredients
+        🔶 /api/recipes              -- create new recipe, get all recipes
+        🔶 /api/recipes/:recipeId    -- get the recipe by recipeId(in Edit Page), delete recipe by recipeId, and update recipe (ingredient quantities)
+
+3. Then, I designed some rough frontend
+4. I created database to store the data, as designed -- and created backend APIs, using Postman to check
+5. Finally, I organised frontend layout, and created functionalities to GET, POST, PATCH and DELETE, as well as testing if their functionalities.
+
+* Reflections: Despite the planning, I discovered that some part had to be adjusted to be able to work properly. Especially, the Edit Page, where it needs to populate ingredientId with data from Ingredients Schema. Some parts are adjusted to improve User experience such as: - I 
+        🔸 Reset Button -- to clear selected ingredients.
+        🔸 Set notifications if recipe is created successfully
+        🔸 Set notifications if recipe is edited successfully.
+        🔸 Edit Recipe: users can increase/decrease the quantities.
+        🔸 Edit Recipe: if all ingredients are deleted -- that recipe will be automatically deleted.
+
+
+The main lessons are that:-
+        🏓 Plan the work ahead helps with organization.
+        🏓 But do not hesitate to adjust to improve the functiona
+
+🎈🎈Thank you for reading. Hope you enjoy my project, and I wish you a pleasant day.
+    
