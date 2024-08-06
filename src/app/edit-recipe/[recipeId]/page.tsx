@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import axios from "axios";
 import EditRecipeCard from "@/app/components/EditRecipeCard";
@@ -14,7 +14,7 @@ interface Ingredient {
 }
 
 interface IngredientDetail {
-	ingredientId: string;
+	ingredientId: Ingredient;
 	quantity: number;
 }
 
@@ -33,33 +33,24 @@ export default function EditRecipe({
 	const [recipe, setRecipe] = useState<Recipe | null>(null);
 	const [loading, setLoading] = useState(true);
 
-	async function fetchRecipeData(recipeId: string) {
+	const fetchRecipeData = useCallback(async (recipeId: string) => {
 		try {
 			const recipeResponse = await axios.get(`/api/recipes/${recipeId}`);
 			const recipeWithIngredientData = recipeResponse.data;
 
 			setRecipe(recipeWithIngredientData);
-
-			console.log(recipe);
 		} catch (error) {
 			console.error("Error fetching recipe data", error);
 		} finally {
 			setLoading(false);
 		}
-	}
+	}, []);
 
 	useEffect(() => {
-		fetchRecipeData(params.recipeId);
-	}, [params.recipeId]);
-
-	// const calculateTotalCalories = () => {
-	// 	if (recipe) {
-	// 	  return recipe.ingredientDetail.reduce((total, { ingredientId, quantity }) => {
-	// 		return total + ingredientId.calories * quantity;
-	// 	  }, 0);
-	// 	}
-	// 	return 0;
-	//   };
+		if (params.recipeId) {
+			fetchRecipeData(params.recipeId);
+		}
+	}, [params.recipeId, fetchRecipeData]);
 
 	const handleUpdateRecipe = async () => {
 		if (recipe) {
@@ -72,6 +63,8 @@ export default function EditRecipe({
 			}
 		}
 	};
+
+	// const calculateTotalCalories;
 
 	return (
 		<div className="flex">
@@ -120,7 +113,7 @@ export default function EditRecipe({
 						<div className="flex flex-col gap-4">
 							{recipe.ingredientDetail.map(({ ingredientId, quantity }) => (
 								<EditRecipeCard
-									key={ingredientId._id}
+									key={ingredientId.id}
 									ingredient={ingredientId}
 									quantity={quantity}
 								/>
