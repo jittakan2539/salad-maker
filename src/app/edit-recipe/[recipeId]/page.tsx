@@ -33,6 +33,7 @@ export default function EditRecipe({
 	const [recipe, setRecipe] = useState<Recipe | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [deletedIngredients, setDeletedIngredients] = useState<string[]>([]);
+	const [updatedSuccess, setUpdatedSuccess] = useState<null | boolean>(null);
 
 	const fetchRecipeData = useCallback(async (recipeId: string) => {
 		try {
@@ -111,10 +112,11 @@ export default function EditRecipe({
 					),
 					removeIngredientId: deletedIngredients,
 				});
-				alert("Recipe updated successfully!");
+
+				setUpdatedSuccess(true);
 			} catch (error) {
 				console.log("Error updating recipe", error);
-				alert("Failed to update recipe.");
+				setUpdatedSuccess(false);
 			}
 		}
 	};
@@ -141,7 +143,11 @@ export default function EditRecipe({
 				</h1>
 				<ul className="space-y-10 flex flex-col items-center">
 					<li>
-						<Link href="/" className="font-medium text-2xl text-slate-500">
+						<Link
+							onClick={() => setUpdatedSuccess(false)}
+							href="/"
+							className="font-medium text-2xl text-slate-500"
+						>
 							<div className="p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
 								Salad Maker
 							</div>
@@ -149,6 +155,7 @@ export default function EditRecipe({
 					</li>
 					<li>
 						<Link
+							onClick={() => setUpdatedSuccess(false)}
 							href="/recipes"
 							className="font-medium text-2xl text-slate-500"
 						>
@@ -165,16 +172,32 @@ export default function EditRecipe({
 					Edit Recipe
 				</h1>
 				<main className="relative bg-white p-5 rounded-xl flex flex-col gap-5">
-					<Link href="/recipes" className="font-medium text-2xl text-slate-500">
+					<Link
+						onClick={() => setUpdatedSuccess(null)}
+						href="/recipes"
+						className="font-medium text-2xl text-slate-500"
+					>
 						<FaXmark className="absolute right-5 top-5 text-neutral-600 text-xl hover:cursor-pointer" />
 					</Link>
 
 					<h2 className="font-extrabold text-neutral-500 text-xl">
 						Your ingredients to make a salad recipe
 					</h2>
-					<h2 className="text-center font-extrabold text-neutral-700 text-2xl">
-						{recipe?.recipeName}
-					</h2>
+					<section className="flex flex-col">
+						<h2 className="text-center font-extrabold text-neutral-700 text-2xl">
+							{recipe?.recipeName}
+						</h2>
+						{updatedSuccess === true && (
+							<p className="text-center font-bold text-green-500 text-xl">
+								Update Success
+							</p>
+						)}
+						{updatedSuccess === false && (
+							<p className="text-center font-bold text-red-500 text-xl">
+								Failed to Update
+							</p>
+						)}
+					</section>
 
 					<p className={`${loading ? "block" : "hidden"} font-semibold`}>
 						Loading...
