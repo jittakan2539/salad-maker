@@ -74,43 +74,40 @@ export async function PATCH(
 
 		const { ingredientDetail, removeIngredientId } = await request.json();
 
-		if (!ingredientDetail || !Array.isArray(ingredientDetail)) {
-			return NextResponse.json(
-				{ error: "Invalid ingredient detail format" },
-				{ status: 400 }
-			);
-		}
-
 		const recipe = await Recipes.findById(recipeId);
 
 		if (!recipe) {
 			return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
 		}
 
-		if (removeIngredientId) {
+		if (removeIngredientId && removeIngredientId.length > 0) {
 			recipe.ingredientDetail = recipe.ingredientDetail.filter(
-				(ingredient) =>
-					ingredient.ingredientId.toString() !== removeIngredientId
+				(item) => !removeIngredientId.includes(item.ingredientId.toString())
 			);
-		} else {
+		}
+
+		if (ingredientDetail && Array.isArray(ingredientDetail)) {
 			ingredientDetail.forEach(({ ingredientId, quantity }) => {
-				const checkIngredient = recipe.ingredientDetail.find(
-					(ingredient) => ingredient.ingredientId.toString() === ingredientId
+				const existingIngredient = recipe.ingredientDetail.find(
+					(item) => item.ingredientId.toString() === ingredientId
 				);
 
-				if (checkIngredient) {
-					checkIngredient.quantity = quantity;
+				if (existingIngredient) {
+					existingIngredient.quantity = quantity;
 				} else {
 					recipe.ingredientDetail.push({ ingredientId, quantity });
 				}
 			});
+		} else {
+			return NextResponse.json(
+				{ error: "Invalid ingredient detail format" },
+				{ status: 400 }
+			);
 		}
 
-		await recipe.save();
+		const updatedRecipe = await recipe.save();
 
-		return NextResponse.json({
-			message: `Recipe with ID${recipeId} updated successfully.`,
-		});
+		return NextResponse.json(updatedRecipe);
 	} catch (error) {
 		console.error("Failed to update recipe:", error);
 		return NextResponse.json(

@@ -32,6 +32,7 @@ export default function EditRecipe({
 }) {
 	const [recipe, setRecipe] = useState<Recipe | null>(null);
 	const [loading, setLoading] = useState(true);
+	const [deletedIngredients, setDeletedIngredients] = useState<string[]>([]);
 
 	const fetchRecipeData = useCallback(async (recipeId: string) => {
 		try {
@@ -82,32 +83,34 @@ export default function EditRecipe({
 	};
 
 	const handleDeleteClick = async (ingredientId: string) => {
-		if (recipe) {
-			try {
-				await axios.patch(`/api/recipes/${params.recipeId}`, {
-					removeIngredientId: ingredientId,
-				});
-				setRecipe((prevRecipe) => {
-					if (!prevRecipe) return prevRecipe;
+		setDeletedIngredients((prevIngredient) => [
+			...prevIngredient,
+			ingredientId,
+		]);
 
-					const updatedIngredientDetail = prevRecipe.ingredientDetail.filter(
-						(item) => item.ingredientId._id !== ingredientId
-					);
+		setRecipe((prevRecipe) => {
+			if (!prevRecipe) return prevRecipe;
 
-					return { ...prevRecipe, ingredientDetail: updatedIngredientDetail };
-					alert("Ingredient deleted successfully!");
-				});
-			} catch (error) {
-				console.log("Error deleting the ingredient", error);
-				alert("Failed to delete ingredient.");
-			}
-		}
+			const updatedIngredientDetail = prevRecipe.ingredientDetail.filter(
+				(item) => item.ingredientId._id !== ingredientId
+			);
+
+			return { ...prevRecipe, ingredientDetail: updatedIngredientDetail };
+		});
 	};
 
 	const handleUpdateRecipe = async () => {
 		if (recipe) {
 			try {
-				await axios.patch(`/api/recipes/${recipe._id}`, recipe);
+				await axios.patch(`/api/recipes/${recipe._id}`, {
+					ingredientDetail: recipe.ingredientDetail.map(
+						({ ingredientId, quantity }) => ({
+							ingredientId: ingredientId._id,
+							quantity,
+						})
+					),
+					removeIngredientId: deletedIngredients,
+				});
 				alert("Recipe updated successfully!");
 			} catch (error) {
 				console.log("Error updating recipe", error);
@@ -197,6 +200,7 @@ export default function EditRecipe({
 					)}
 
 					<hr className="border border-neutral-300" />
+
 					<section className="flex justify-between">
 						<p className="font-semibold">Total Calories</p>
 						<p className="font-semibold text-xl">
