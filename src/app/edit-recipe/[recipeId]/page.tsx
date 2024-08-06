@@ -135,8 +135,8 @@ export default function EditRecipe({
 
 					<hr className="border border-neutral-300" />
 					<section className="flex justify-between">
-						<p className="font-semibold">Total Calorie</p>
-						<p className="font-semibold">
+						<p className="font-semibold">Total Calories</p>
+						<p className="font-semibold text-xl">
 							{calculateTotalCalories()}{" "}
 							<span className="text-orange">Cal</span>
 						</p>
