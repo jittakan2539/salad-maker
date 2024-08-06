@@ -10,9 +10,9 @@ This project is created to showcase my skills in fullstack development, using Ne
 
 2. Type "npm i" to install the dependencies required such as:
 
-   - axios
-   - mongoose
-   - etc.
+```terminall
+npm i
+```
 
 3. Type "npm run dev" to run this project.
 
