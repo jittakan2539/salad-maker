@@ -1,8 +1,78 @@
-import React from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
+import EditRecipeCard from "@/app/components/EditRecipeCard";
+import { FaXmark } from "react-icons/fa6";
 
-export default function EditRecipe() {
+interface Ingredient {
+	id: string;
+	ingredient: string;
+	image: string;
+	calories: number;
+}
+
+interface IngredientDetail {
+	ingredientId: string;
+	quantity: number;
+}
+
+interface Recipe {
+	_id: string;
+	recipeName: string;
+	ingredientDetail: IngredientDetail[];
+	totalCalories: number;
+}
+
+export default function EditRecipe({
+	params,
+}: {
+	params: { recipeId: string };
+}) {
+	const [recipe, setRecipe] = useState<Recipe | null>(null);
+	const [loading, setLoading] = useState(true);
+
+	async function fetchRecipeData(recipeId: string) {
+		try {
+			const recipeResponse = await axios.get(`/api/recipes/${recipeId}`);
+			const recipeWithIngredientData = recipeResponse.data;
+
+			setRecipe(recipeWithIngredientData);
+
+			console.log(recipe);
+		} catch (error) {
+			console.error("Error fetching recipe data", error);
+		} finally {
+			setLoading(false);
+		}
+	}
+
+	useEffect(() => {
+		fetchRecipeData(params.recipeId);
+	}, [params.recipeId]);
+
+	// const calculateTotalCalories = () => {
+	// 	if (recipe) {
+	// 	  return recipe.ingredientDetail.reduce((total, { ingredientId, quantity }) => {
+	// 		return total + ingredientId.calories * quantity;
+	// 	  }, 0);
+	// 	}
+	// 	return 0;
+	//   };
+
+	const handleUpdateRecipe = async () => {
+		if (recipe) {
+			try {
+				await axios.patch(`/api/recipes/${recipe._id}`, recipe);
+				alert("Recipe updated successfully!");
+			} catch (error) {
+				console.log("Error updating recipe", error);
+				alert("Failed to update recipe.");
+			}
+		}
+	};
+
 	return (
 		<div className="flex">
 			<nav className="bg-white w-96 flex flex-col items-center p-10 overflow-hidden gap-20 sticky top-0 h-screen">
@@ -30,14 +100,47 @@ export default function EditRecipe() {
 				</ul>
 			</nav>
 
-			<section className="flex-1 flex flex-col pt-10 px-10 gap-8">
+			<section className=" flex-1 flex flex-col pt-10 px-10 gap-8">
 				<h1 className="font-extrabold text-neutral-800 text-4xl">
 					Edit Recipe
 				</h1>
-				<main className="bg-white p-5 rounded-xl">
+				<main className="relative bg-white p-5 rounded-xl flex flex-col gap-5">
+					<Link href="/recipes" className="font-medium text-2xl text-slate-500">
+						<FaXmark className="absolute right-5 top-5 text-neutral-600 text-xl hover:cursor-pointer" />
+					</Link>
+
 					<h2 className="font-extrabold text-neutral-700 text-xl">
 						Your ingredients to make a salad Recipe
 					</h2>
+					<p className={`${loading ? "block" : "hidden"} font-semibold`}>
+						Loading...
+					</p>
+
+					{!loading && recipe && (
+						<div className="flex flex-col gap-4">
+							{recipe.ingredientDetail.map(({ ingredientId, quantity }) => (
+								<EditRecipeCard
+									key={ingredientId._id}
+									ingredient={ingredientId}
+									quantity={quantity}
+								/>
+							))}
+						</div>
+					)}
+
+					<hr className="border border-neutral-300" />
+					<section className="flex justify-between">
+						<p className="font-semibold">Total Calorie</p>
+						<p className="font-semibold">
+							188 <span className="text-orange">Cal</span>
+						</p>
+					</section>
+					<button
+						className="bg-orange rounded-lg p-2 py-3 text-white font-bold"
+						onClick={handleUpdateRecipe}
+					>
+						Update Recipe
+					</button>
 				</main>
 			</section>
 		</div>

@@ -17,15 +17,10 @@ interface Recipe {
 
 interface RecipeCardProps {
 	recipe: Recipe;
-	// onEditClick: () => void;
 	onDeleteClick: () => void;
 }
 
-const RecipeCard: FC<RecipeCardProps> = ({
-	recipe,
-	// onEditClick,
-	onDeleteClick,
-}) => {
+const RecipeCard: FC<RecipeCardProps> = ({ recipe, onDeleteClick }) => {
 	return (
 		<>
 			<article className="items-start flex flex-col py-5 justify-between  gap-4 bg-orange rounded-xl px-5 h-80">
@@ -46,7 +41,7 @@ const RecipeCard: FC<RecipeCardProps> = ({
 						<p>Delete</p>
 					</button>
 					<Link
-						href={`/edit-recipe/$recipe._id`}
+						href={`/edit-recipe/${recipe._id}`}
 						className="bg-white flex gap-2 items-center justify-center w-1/2 p-2 rounded-3xl text-lg font-bold hover:cursor-pointer"
 					>
 						<FaEdit />

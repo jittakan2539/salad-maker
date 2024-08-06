@@ -84,7 +84,6 @@ export default function Recipe() {
 									<RecipeCard
 										key={recipe._id}
 										recipe={recipe}
-										// onEditClick={() => toggleOpenEdit(recipe._id)}
 										onDeleteClick={() => toggleOpenDeleteCard(recipe._id)}
 									/>
 								))}

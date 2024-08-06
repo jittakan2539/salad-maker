@@ -11,9 +11,11 @@ export async function GET(
 
 		const { recipeId } = params;
 
-		const recipeById = await Recipes.findById(recipeId);
+		const recipeById = await Recipes.findById(recipeId).populate(
+			`ingredientDetail.ingredientId`
+		);
 
-		if (!recipeId) {
+		if (!recipeById) {
 			return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
 		}
 
