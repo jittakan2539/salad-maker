@@ -2,7 +2,10 @@ import mongoose, { Document, Schema, Model } from "mongoose";
 
 export interface IRecipes extends Document {
 	recipeName: string;
-	ingredientDetail: { ingredientId: string; quantity: number }[];
+	ingredientDetail: {
+		ingredientId: mongoose.Schema.Types.ObjectId;
+		quantity: number;
+	}[];
 	totalCalories: number;
 	createOn: Date;
 	deleteOn: Date;

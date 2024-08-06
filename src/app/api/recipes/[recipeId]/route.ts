@@ -72,7 +72,7 @@ export async function PATCH(
 
 		const { recipeId } = params;
 
-		const { ingredientDetail } = await request.json();
+		const { ingredientDetail, removeIngredientId } = await request.json();
 
 		if (!ingredientDetail || !Array.isArray(ingredientDetail)) {
 			return NextResponse.json(
@@ -87,17 +87,24 @@ export async function PATCH(
 			return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
 		}
 
-		ingredientDetail.forEach(({ ingredientId, quantity }) => {
-			const checkIngredient = recipe.ingredientDetail.find(
-				(ingredient) => ingredient.ingredientId.toString() === ingredientId
+		if (removeIngredientId) {
+			recipe.ingredientDetail = recipe.ingredientDetail.filter(
+				(ingredient) =>
+					ingredient.ingredientId.toString() !== removeIngredientId
 			);
+		} else {
+			ingredientDetail.forEach(({ ingredientId, quantity }) => {
+				const checkIngredient = recipe.ingredientDetail.find(
+					(ingredient) => ingredient.ingredientId.toString() === ingredientId
+				);
 
-			if (checkIngredient) {
-				checkIngredient.quantity = quantity;
-			} else {
-				recipe.ingredientDetail.push({ ingredientId, quantity });
-			}
-		});
+				if (checkIngredient) {
+					checkIngredient.quantity = quantity;
+				} else {
+					recipe.ingredientDetail.push({ ingredientId, quantity });
+				}
+			});
+		}
 
 		await recipe.save();
 

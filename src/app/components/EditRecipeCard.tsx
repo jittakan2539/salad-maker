@@ -14,6 +14,7 @@ interface EditRecipeCardProps {
 	quantity: number;
 	onPlusClick: () => void;
 	onMinusClick: () => void;
+	onDeleteClick: () => void;
 }
 
 const EditRecipeCard: FC<EditRecipeCardProps> = ({
@@ -21,6 +22,7 @@ const EditRecipeCard: FC<EditRecipeCardProps> = ({
 	quantity,
 	onPlusClick,
 	onMinusClick,
+	onDeleteClick,
 }) => {
 	return (
 		<article className="flex items-center gap-4 p-4 border rounded-lg shadow-md">
@@ -49,7 +51,10 @@ const EditRecipeCard: FC<EditRecipeCardProps> = ({
 						>
 							<FaPlus className=" text-sm text-white" />
 						</button>
-						<button className=" bg-red-500 rounded-xl p-1 px-3">
+						<button
+							onClick={onDeleteClick}
+							className=" bg-red-500 rounded-xl p-1 px-3"
+						>
 							<p className="text-white">Delete</p>
 						</button>
 					</div>

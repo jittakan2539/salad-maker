@@ -54,7 +54,6 @@ export default function EditRecipe({
 	}, [params.recipeId, fetchRecipeData]);
 
 	const handleIngredientPlusClick = (_id: string) => {
-		// console.log("Increasing quantity for ingredient ID:", id);
 		setRecipe((prevRecipe) => {
 			if (!prevRecipe) return prevRecipe;
 
@@ -73,13 +72,36 @@ export default function EditRecipe({
 			if (!prevRecipe) return prevRecipe;
 
 			const updatedIngredientDetail = prevRecipe.ingredientDetail.map((item) =>
-				item.ingredientId._id === _id && item.quantity > 0
+				item.ingredientId._id === _id && item.quantity > 1
 					? { ...item, quantity: item.quantity - 1 }
 					: item
 			);
 
 			return { ...prevRecipe, ingredientDetail: updatedIngredientDetail };
 		});
+	};
+
+	const handleDeleteClick = async (ingredientId: string) => {
+		if (recipe) {
+			try {
+				await axios.patch(`/api/recipes/${params.recipeId}`, {
+					removeIngredientId: ingredientId,
+				});
+				setRecipe((prevRecipe) => {
+					if (!prevRecipe) return prevRecipe;
+
+					const updatedIngredientDetail = prevRecipe.ingredientDetail.filter(
+						(item) => item.ingredientId._id !== ingredientId
+					);
+
+					return { ...prevRecipe, ingredientDetail: updatedIngredientDetail };
+					alert("Ingredient deleted successfully!");
+				});
+			} catch (error) {
+				console.log("Error deleting the ingredient", error);
+				alert("Failed to delete ingredient.");
+			}
+		}
 	};
 
 	const handleUpdateRecipe = async () => {
@@ -144,9 +166,13 @@ export default function EditRecipe({
 						<FaXmark className="absolute right-5 top-5 text-neutral-600 text-xl hover:cursor-pointer" />
 					</Link>
 
-					<h2 className="font-extrabold text-neutral-700 text-xl">
-						Your ingredients to make a salad Recipe
+					<h2 className="font-extrabold text-neutral-500 text-xl">
+						Your ingredients to make a salad recipe
 					</h2>
+					<h2 className="text-center font-extrabold text-neutral-700 text-2xl">
+						{recipe?.recipeName}
+					</h2>
+
 					<p className={`${loading ? "block" : "hidden"} font-semibold`}>
 						Loading...
 					</p>
@@ -164,6 +190,7 @@ export default function EditRecipe({
 									onMinusClick={() =>
 										handleIngredientMinusClick(ingredientId._id)
 									}
+									onDeleteClick={() => handleDeleteClick(ingredientId._id)}
 								/>
 							))}
 						</div>
