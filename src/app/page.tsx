@@ -44,14 +44,19 @@ export default function Home() {
 	}>({});
 	const [totalCalories, setTotalCalories] = useState<number>(0);
 	const [openCreateRecipe, setOpenCreateRecipe] = useState(false);
+	const [searchTerm, setSearchTerm] = useState<string>("");
 
-	async function getQueryIngredients(categories: string[]) {
+	async function getQueryIngredients(categories: string[], search: string) {
 		try {
 			const categoryQuery = categories.length
 				? `category=${categories.join(",")}`
 				: "";
 
-			const response = await axios.get(`/api/ingredients?${categoryQuery}`);
+			const searchQuery = search ? `&name=${search}` : "";
+
+			const response = await axios.get(
+				`/api/ingredients?${categoryQuery}${searchQuery}`
+			);
 			const { data } = response;
 			setIngredientList(data);
 		} catch (error) {
@@ -60,8 +65,8 @@ export default function Home() {
 	}
 
 	useEffect(() => {
-		getQueryIngredients(selectCategories);
-	}, [selectCategories]);
+		getQueryIngredients(selectCategories, searchTerm);
+	}, [selectCategories, searchTerm]);
 
 	useEffect(() => {
 		const calculateTotalCalories = () => {
@@ -86,7 +91,7 @@ export default function Home() {
 				  )
 				: [...prevSelectedCategories, category];
 
-			getQueryIngredients(newCategories);
+			getQueryIngredients(newCategories, searchTerm);
 
 			return newCategories;
 		});
@@ -120,6 +125,10 @@ export default function Home() {
 
 	const toggleOpenCreateRecipe = () => {
 		setOpenCreateRecipe(!openCreateRecipe);
+	};
+
+	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchTerm(event.target.value);
 	};
 
 	return (
@@ -165,6 +174,8 @@ export default function Home() {
 								name="search"
 								type="text"
 								placeholder="Search ingredients to make a salad"
+								value={searchTerm}
+								onChange={handleSearchChange}
 							/>
 						</div>
 					</div>
