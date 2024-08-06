@@ -1,71 +1,65 @@
 # Salad-maker Web App Project
 
-## Web app created by Kan Jittapramoulboon in 2024, using Next.js framework and TypeScript.
+## Overview
 
-This project is created to showcase my skills in fullstack development, using Next.js framework, Typescript and MongoDB for Database. The initlal UI design is provided, and adjusted to enhance better User Experience
+This web app, created by Kan Jittapramoulboon in 2024 using the Next.js framework and TypeScript, showcases my skills in fullstack development. The project utilizes MongoDB for the database. The initial UI design provided has been adjusted to enhance the user experience.
 
-## Setup Instructions:
+## Setup Instructions
 
-1. Clone Salad-maker project.
+1. Clone the Salad-maker project:
+    ```bash
+    git clone https://github.com/jittakan2539/salad-maker.git
+    ```
 
-```terminall
-git clone https://github.com/jittakan2539/salad-maker.git
-```
+2. Install the required dependencies:
+    ```bash
+    npm install
+    ```
 
-2. Install the dependencies required such as: axios, mongoose, etc.
+3. Run the project:
+    ```bash
+    npm run dev
+    ```
 
-```terminall
-npm i
-```
+## Approach
 
-3. Run the project.
+1. **Analysis:**
+    - Analyzed the three main requirements and the provided Figma UI design along with the given .JSON to understand the project scope.
+    - Main requirements:
+        - **Ingredients Page:** All ingredients are fetched and can be categorized. New recipes can be created using the given ingredients.
+        - **Recipes Page:** A list of all recipes can be seen. Users can delete or edit each recipe.
+        - **Edit Recipe Page:** Redirects to the Edit Recipe page where users can change ingredient quantities or delete them.
 
-```terminall
-npm run dev
-```
+2. **API and Database Design:**
+    - Refer to [API and Database Design](https://drive.google.com/file/d/10xrXKo9kwOoOq-wliIkRpP61eQD9_lNB/view?usp=sharing) for details.
+    - Database: Two collections - `ingredients` and `recipes`.
+        - **Ingredients:** Stores ingredient name, picture path, category, and calories.
+        - **Recipes:** Stores recipe name and ingredient details, including ingredientId and quantity.
+    - API Endpoints:
+        - `/api/ingredients`: Fetch ingredients.
+        - `/api/recipes`: Create new recipes, get all recipes.
+        - `/api/recipes/:recipeId`: Get recipe by recipeId (Edit Page), delete recipe by recipeId, update recipe (ingredient quantities).
 
-## My brief approach to this project.
+3. **Frontend Design:**
+    - Designed a rough frontend layout based on the analysis.
+    - Created a database to store data as designed and built backend APIs, using Postman for testing.
 
-1. I analysed, first, the three main requirements and Figma UI design (together with the given .JSON), to better understand the scope.
-   The main requirements are: -
+4. **Frontend Functionalities:**
+    - Organized the frontend layout and implemented functionalities to GET, POST, PATCH, and DELETE recipes and ingredients.
+    - Added additional features to improve user experience:
+        - **Reset Button:** Clears selected ingredients.
+        - **Notifications:** Alerts for successful recipe creation and edits.
+        - **Edit Recipe Page:**
+            - Users can increase/decrease ingredient quantities.
+            - Automatically deletes a recipe if all ingredients are removed.
 
-   ✔️ Ingredients Page
-        🔶 all ingredients are fetched and can be caegorized, and new recipes can be created, using the given ingredients.
-   ✔️ Recipes Page
-        🔶 the list of all recipes can be seen, and they can click to delete or edit each recipe
-   ✔️ Edit Recipe Page
-        🔶if users click "edit", I will redirect to Edit-Recipe, where they can change the ingredient quantity or delete them.
+## Reflections
 
-2. Design API and Database
+- **Planning:** Organizing work ahead helps with project structure.
+- **Flexibility:** Adjustments are necessary to improve functionality, particularly for the Edit Page, which required populating ingredientId with data from the Ingredients schema.
 
-Please refer to "https://drive.google.com/file/d/10xrXKo9kwOoOq-wliIkRpP61eQD9_lNB/view?usp=sharing" to see my initial API and database design
+---
 
-    With initial given JSON and analysis of the UI design, I went on to design API and database
+🎈 Thank you for reading. I hope you enjoy my project, and I wish you a pleasant day.
 
-    🎁Database: Two collections are necessary: ingredients and recipes
-        🔶 Ingredients: the ingredients will store all data used in ingredient page, such as ingredient name, picture path, category and calories.
-        🔶 Recipes: will store the recipe name and ingredient detail: ingredientId (used to connect with) and the quantity
-
-    🎁API: separated into three main
-        🔶 /api/ingredients          -- fetch ingredients
-        🔶 /api/recipes              -- create new recipe, get all recipes
-        🔶 /api/recipes/:recipeId    -- get the recipe by recipeId(in Edit Page), delete recipe by recipeId, and update recipe (ingredient quantities)
-
-3. Then, I designed some rough frontend
-4. I created database to store the data, as designed -- and created backend APIs, using Postman to check
-5. Finally, I organised frontend layout, and created functionalities to GET, POST, PATCH and DELETE, as well as testing if their functionalities.
-
-* Reflections: Despite the planning, I discovered that some part had to be adjusted to be able to work properly. Especially, the Edit Page, where it needs to populate ingredientId with data from Ingredients Schema. Some parts are adjusted to improve User experience such as: - I 
-        🔸 Reset Button -- to clear selected ingredients.
-        🔸 Set notifications if recipe is created successfully
-        🔸 Set notifications if recipe is edited successfully.
-        🔸 Edit Recipe: users can increase/decrease the quantities.
-        🔸 Edit Recipe: if all ingredients are deleted -- that recipe will be automatically deleted.
-
-
-The main lessons are that:-
-        🏓 Plan the work ahead helps with organization.
-        🏓 But do not hesitate to adjust to improve the functiona
-
-🎈🎈Thank you for reading. Hope you enjoy my project, and I wish you a pleasant day.
-    
+---
