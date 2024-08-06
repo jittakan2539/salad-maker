@@ -5,6 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 import EditRecipeCard from "@/app/components/EditRecipeCard";
 import { FaXmark } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
 
 interface Ingredient {
 	_id: string;
@@ -35,12 +36,15 @@ export default function EditRecipe({
 	const [deletedIngredients, setDeletedIngredients] = useState<string[]>([]);
 	const [updatedSuccess, setUpdatedSuccess] = useState<null | boolean>(null);
 
+	const router = useRouter();
+
 	const fetchRecipeData = useCallback(async (recipeId: string) => {
 		try {
 			const recipeResponse = await axios.get(`/api/recipes/${recipeId}`);
 			const recipeWithIngredientData = recipeResponse.data;
 
 			setRecipe(recipeWithIngredientData);
+
 			console.log("Fetched recipe data:", recipeWithIngredientData);
 		} catch (error) {
 			console.error("Error fetching recipe data", error);
@@ -100,6 +104,10 @@ export default function EditRecipe({
 		});
 	};
 
+	const handleNavigation = (path: string) => {
+		router.push(path);
+	};
+
 	const handleUpdateRecipe = async () => {
 		if (recipe) {
 			try {
@@ -117,6 +125,15 @@ export default function EditRecipe({
 			} catch (error) {
 				console.log("Error updating recipe", error);
 				setUpdatedSuccess(false);
+			}
+		}
+
+		if (recipe?.ingredientDetail.length === 0) {
+			try {
+				await axios.delete(`/api/recipes/${recipe._id}`);
+				handleNavigation("/recipes");
+			} catch (error) {
+				console.log("Failed to delete recipe", error);
 			}
 		}
 	};
