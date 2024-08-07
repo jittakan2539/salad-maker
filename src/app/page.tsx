@@ -230,14 +230,21 @@ export default function Home() {
 							/>
 						</div>
 					</div>
-					<figure className="hidden md:block p-10 bg-yellow-200 rounded-xl">
+					<figure
+						className="hidden md:block p-10 rounded-xl bg-yellow-200"
+						style={{
+							backgroundImage: "url('/images/banner.png')",
+							backgroundSize: "cover",
+							backgroundPosition: "center",
+						}}
+					>
 						<div className="w-60 flex flex-col gap-5">
 							<h2 className="font-extrabold text-sky-950 text-3xl">
 								Fresh
 								<br /> & tasty salads
 							</h2>
 							<p>
-								Relax please, we&apos;ve got you covered every day of the week{" "}
+								Relax please, we&apos;ve got you covered every day of the week
 							</p>
 						</div>
 					</figure>
