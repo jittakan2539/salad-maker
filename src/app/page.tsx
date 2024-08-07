@@ -6,7 +6,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import CategoryCard from "@/app/components/CategoryCard";
 import IngredientCard from "./components/IngredientCard";
 import CreateRecipeCard from "./components/CreateRecipeCard";
-import { FaBars } from "react-icons/fa6";
+import { FaBars, FaBowlFood } from "react-icons/fa6";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -138,21 +138,21 @@ export default function Home() {
 	};
 
 	return (
-		<div className="flex flex-col md:flex-row ">
-			<nav className="z-50 sticky top-0 overflow-hidden md:h-screen bg-white w-full md:w-96 flex flex-col md:items-center pt-10 pb-5 px-5 md:px-10  gap-5 md:gap-20 ">
-				<section className="flex items-center justify-between  md:px-0">
-					<h1 className="font-extrabold text-sky-950 text-lg md:text-4xl">
+		<div className="flex flex-col lg:flex-row">
+			<nav className="z-50 sticky top-0 overflow-hidden lg:h-screen bg-white w-full lg:w-96 flex flex-col lg:items-center pt-10 pb-5 px-5 lg:px-10  gap-5 lg:gap-20 ">
+				<section className="flex items-center justify-between  lg:px-0">
+					<h1 className="font-extrabold text-sky-950 text-lg lg:text-4xl">
 						<Link href="/">
 							SALADMAKER<span className="text-orange">.</span>
 						</Link>
 					</h1>
 					<button onClick={handleOpenMenuBar}>
-						<FaBars className="block md:hidden" />
+						<FaBars className="block lg:hidden" />
 					</button>
 				</section>
 
 				{openMenuBar && (
-					<ul className="space-y-5 md:space-y-10 flex md:hidden flex-col items-center flex-1 px-5 md:px-0">
+					<ul className="space-y-5 lg:space-y-10 flex lg:hidden flex-col items-center flex-1 px-5 lg:px-0">
 						<li>
 							<Link href="/" className="font-medium text-2xl text-slate-500">
 								<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
@@ -165,14 +165,14 @@ export default function Home() {
 								href="/recipes"
 								className="font-medium text-2xl text-slate-500"
 							>
-								<div className=" p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
+								<div className=" p-5 px-16 rounded-2xl text-black hover:shadow-lg w-72 text-center">
 									Recipes
 								</div>
 							</Link>
 						</li>
 					</ul>
 				)}
-				<ul className="space-y-5 md:space-y-10 hidden md:flex flex-col items-center flex-1 px-5 md:px-0">
+				<ul className="space-y-5 lg:space-y-10 hidden lg:flex flex-col items-center flex-1 px-5 lg:px-0">
 					<li>
 						<Link href="/" className="font-medium text-2xl text-slate-500">
 							<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
@@ -193,19 +193,19 @@ export default function Home() {
 				</ul>
 			</nav>
 
-			<div className="flex-1 flex flex-col pt-10 ">
-				<header className="flex flex-col mb-8 px-10">
-					<div className="flex items-center justify-between mb-8">
-						<h1 className="font-extrabold text-neutral-800 text-4xl">
+			<div className="z-1 flex-1 flex flex-col pt-5 md:pt-10 ">
+				<header className="flex flex-col mb-8 px-5 md:px-10">
+					<div className="flex flex-col gap-5 md:flex-row items-center justify-between mb-0 md:mb-8">
+						<h1 className=" font-extrabold text-neutral-800 text-3xl md:text-4xl">
 							Let&apos;s Create...your own salad!!!
 						</h1>
 
-						<div id="search-container" className="relative w-1/3 ">
+						<div className="hidden md:block relative w-full md:w-1/3">
 							<span className="absolute inset-y-0 left-0 flex items-center px-5 cursor-pointer">
 								<FaMagnifyingGlass className="text-orange" />
 							</span>
 							<input
-								className="input-createAccount w-full pl-10 py-2 border border-gray-300 rounded-lg"
+								className="w-full pl-10 py-2 border border-gray-300 rounded-lg"
 								name="search"
 								type="text"
 								placeholder="Search ingredients to make a salad"
@@ -213,8 +213,21 @@ export default function Home() {
 								onChange={handleSearchChange}
 							/>
 						</div>
+						<div className="block md:hidden relative w-full md:w-1/3">
+							<span className="absolute inset-y-0 left-0 flex items-center px-5 cursor-pointer">
+								<FaMagnifyingGlass className="text-orange" />
+							</span>
+							<input
+								className="w-full pl-10 py-2 border border-gray-300 rounded-lg"
+								name="search"
+								type="text"
+								placeholder="Search ingredients"
+								value={searchTerm}
+								onChange={handleSearchChange}
+							/>
+						</div>
 					</div>
-					<figure className="p-10 bg-yellow-200 rounded-xl">
+					<figure className="hidden md:block p-10 bg-yellow-200 rounded-xl">
 						<div className="w-60 flex flex-col gap-5">
 							<h2 className="font-extrabold text-sky-950 text-3xl">
 								Fresh
@@ -227,12 +240,12 @@ export default function Home() {
 					</figure>
 				</header>
 
-				<main className="flex-1 px-10">
-					<section className="flex flex-col gap-8 mb-8">
+				<main className="flex flex-col gap-5 md:gap-16 px-5 md:px-10">
+					<section className="flex flex-col gap-3 md:gap-5">
 						<h2 className="font-extrabold text-neutral-700 text-xl">
 							Select Category
 						</h2>
-						<div className="flex gap-5">
+						<div className="flex gap-5 overflow-x-scroll md:overflow-visible">
 							{categoryList.map((category) => (
 								<CategoryCard
 									key={category.id}
@@ -245,11 +258,11 @@ export default function Home() {
 						</div>
 					</section>
 
-					<section className="my-8 ">
-						<h2 className="font-extrabold text-neutral-700 text-xl mb-8">
+					<section className="flex flex-col gap-3 md:gap-5">
+						<h2 className="font-extrabold text-neutral-700 text-xl">
 							Choose your ingredients to make a salad
 						</h2>
-						<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-6">
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-4 md:gap-6">
 							{ingredientList.length > 0 ? (
 								ingredientList.map((ingredient) => (
 									<IngredientCard
@@ -274,35 +287,38 @@ export default function Home() {
 				</main>
 
 				{allQuantities > 0 && (
-					<section className="bg-white flex justify-between items-stretch p-4 mt-8 w-full gap-8 sticky bottom-0">
-						<div className=" md:w-4/6 flex gap-5 items-center justify-between bg-orange p-3 px-5 rounded-xl pl-6">
-							<div className="flex items-center gap-5 justify-between">
-								<div className="bg-white w-12 h-12 flex items-center justify-center rounded-xl">
+					<article className="bg-white flex flex-col md:flex-row justify-between items-stretch p-4 mt-8 w-full gap-2 md:gap-8 sticky bottom-0">
+						<section className="w-full md:w-4/6 flex gap-5 items-center justify-between bg-orange p-2 md:p-3 md:px-5 rounded-xl pl-6">
+							<div className="flex md:text-row items-center gap-3 md:gap-5 justify-between">
+								<div className="bg-white w-8 h-8 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl">
 									<p className="font-medium text-2xl text-orange">
 										{allQuantities}
 									</p>
 								</div>
-								<p className="font-semibold text-2xl text-white">
+								<p className="hidden md:block font-semibold text-lg md:text-2xl text-white">
 									Your Ingredients
 								</p>
+								<FaBowlFood className="block md:hidden text-white text-xl" />
 							</div>
-							<p className="font-semibold text-2xl text-white pr-5">
+							<p className="font-semibold text-lg md:text-2xl text-white pr-5">
 								{totalCalories} Cal
 							</p>
-						</div>
-						<button
-							onClick={resetQuantities}
-							className="flex  items-center justify-center  md:w-1/6 bg-red-500 font-bold text-2xl text-white p-4 rounded-xl hover:bg-red-600 transition duration-300"
-						>
-							Reset
-						</button>
-						<button
-							onClick={toggleOpenCreateRecipe}
-							className="flex  items-center justify-center  md:w-1/6 bg-green-500 font-bold text-2xl text-white p-4 rounded-xl hover:bg-green-600 transition duration-300"
-						>
-							Create Recipe
-						</button>
-					</section>
+						</section>
+						<section className="flex flex-row w-full md:w-2/6 gap-2 md:gap-8">
+							<button
+								onClick={resetQuantities}
+								className="flex items-center justify-center w-full  bg-red-500 font-bold text-lg md:text-2xl text-white p-2 md:p-4 rounded-xl hover:bg-red-600 transition duration-300"
+							>
+								Reset
+							</button>
+							<button
+								onClick={toggleOpenCreateRecipe}
+								className="flex  items-center justify-center w-full  bg-green-500 font-bold text-lg md:text-2xl text-white p-2 md:p-4 rounded-xl hover:bg-green-600 transition duration-300"
+							>
+								Create Recipe
+							</button>
+						</section>
+					</article>
 				)}
 				<CreateRecipeCard
 					toggleOpenCreateRecipe={toggleOpenCreateRecipe}
