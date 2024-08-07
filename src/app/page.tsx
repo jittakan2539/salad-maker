@@ -138,21 +138,21 @@ export default function Home() {
 	};
 
 	return (
-		<div className="flex flex-col lg:flex-row">
-			<nav className="z-50 sticky top-0 overflow-hidden lg:h-screen bg-white w-full lg:w-96 flex flex-col lg:items-center pt-10 pb-5 px-5 lg:px-10  gap-5 lg:gap-20 ">
-				<section className="flex items-center justify-between  lg:px-0">
-					<h1 className="font-extrabold text-sky-950 text-lg lg:text-4xl">
+		<div className="flex flex-col xl:flex-row">
+			<nav className="z-50 sticky top-0 overflow-hidden xl:h-screen bg-white w-full xl:w-96 flex flex-col xl:items-center pt-10 pb-5 px-5 md:px-10 gap-5 xl:gap-20 ">
+				<section className="flex items-center justify-between  xl:px-0">
+					<h1 className="font-extrabold text-sky-950 text-xl xl:text-4xl">
 						<Link href="/">
 							SALADMAKER<span className="text-orange">.</span>
 						</Link>
 					</h1>
 					<button onClick={handleOpenMenuBar}>
-						<FaBars className="block lg:hidden" />
+						<FaBars className="block xl:hidden" />
 					</button>
 				</section>
 
 				{openMenuBar && (
-					<ul className="space-y-5 lg:space-y-10 flex lg:hidden flex-col items-center flex-1 px-5 lg:px-0">
+					<ul className="space-y-5 xl:space-y-10 flex xl:hidden flex-col items-center flex-1 px-5 xl:px-0">
 						<li>
 							<Link href="/" className="font-medium text-2xl text-slate-500">
 								<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
@@ -165,14 +165,14 @@ export default function Home() {
 								href="/recipes"
 								className="font-medium text-2xl text-slate-500"
 							>
-								<div className=" p-5 px-16 rounded-2xl text-black hover:shadow-lg w-72 text-center">
+								<div className=" p-5 px-16 rounded-2xl text-black hover:shadow-xl w-72 text-center">
 									Recipes
 								</div>
 							</Link>
 						</li>
 					</ul>
 				)}
-				<ul className="space-y-5 lg:space-y-10 hidden lg:flex flex-col items-center flex-1 px-5 lg:px-0">
+				<ul className="space-y-5 xl:space-y-10 hidden xl:flex flex-col items-center flex-1 px-5 xl:px-0">
 					<li>
 						<Link href="/" className="font-medium text-2xl text-slate-500">
 							<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
@@ -195,12 +195,12 @@ export default function Home() {
 
 			<div className="z-1 flex-1 flex flex-col pt-5 md:pt-10 ">
 				<header className="flex flex-col mb-8 px-5 md:px-10">
-					<div className="flex flex-col gap-5 md:flex-row items-center justify-between mb-0 md:mb-8">
-						<h1 className=" font-extrabold text-neutral-800 text-3xl md:text-4xl">
+					<div className="flex flex-col gap-5 xl:flex-row items-center justify-between mb-0 md:mb-8">
+						<h1 className=" font-extrabold text-neutral-800 text-2xl md:text-4xl">
 							Let&apos;s Create...your own salad!!!
 						</h1>
 
-						<div className="hidden md:block relative w-full md:w-1/3">
+						<div className="hidden md:block relative w-full md:w-2/3 xl:w-1/3">
 							<span className="absolute inset-y-0 left-0 flex items-center px-5 cursor-pointer">
 								<FaMagnifyingGlass className="text-orange" />
 							</span>
@@ -213,7 +213,7 @@ export default function Home() {
 								onChange={handleSearchChange}
 							/>
 						</div>
-						<div className="block md:hidden relative w-full md:w-1/3">
+						<div className="block md:hidden relative w-full  ">
 							<span className="absolute inset-y-0 left-0 flex items-center px-5 cursor-pointer">
 								<FaMagnifyingGlass className="text-orange" />
 							</span>

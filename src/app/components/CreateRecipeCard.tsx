@@ -73,8 +73,8 @@ const CreateRecipeCard: React.FC<CreateRecipeCardProps> = ({
 		<>
 			{openCreateRecipe && (
 				<section className="fixed inset-0 flex items-center justify-center bg-black/50 ">
-					<article className="absolute top-28 bg-white z-50 p-5 rounded-lg   w-1/3">
-						<section className="relative w-full flex flex-col items-center justify-center gap-3 px-10">
+					<article className="absolute top-28 bg-white z-50 p-5 rounded-lg w-full md:w-2/3 xl:w-1/3">
+						<section className="relative w-full flex flex-col items-center justify-center gap-3 lg:px-10">
 							<div className="bg-orange w-20 h-20 flex items-center justify-center rounded-full">
 								<FaUtensils className="text-4xl  text-white" />
 							</div>
@@ -109,16 +109,16 @@ const CreateRecipeCard: React.FC<CreateRecipeCardProps> = ({
 								className="absolute right-0 top-0 text-neutral-600 text-xl hover:cursor-pointer"
 								onClick={closeRecipeandClearNotify}
 							/>
-							<div className="flex w-full gap-2 pt-10">
+							<div className="flex flex-col md:flex-row justify-center items-center w-full gap-2 pt-10">
 								<button
 									onClick={closeRecipeandClearNotify}
-									className="w-1/2 flex  items-center justify-center  bg-white font-bold text-xl text-black p-4 rounded-xl hover:shadow-lg transition duration-300"
+									className="w-full md:w-1/2 flex items-center justify-center  bg-white font-bold text-lg md:text-xl text-black p-4 rounded-xl hover:shadow-lg transition duration-300"
 								>
 									Cancel
 								</button>
 								<button
 									onClick={handleSubmit}
-									className="flex w-1/2  items-center justify-center  bg-green-500 font-bold text-xl text-white p-4 rounded-xl hover:bg-green-600 hover:shadow-lg transition duration-300"
+									className="flex w-full md:w-1/2  items-center justify-center bg-green-500 font-bold text-lg md:text-xl text-white p-4 rounded-xl hover:bg-green-600 hover:shadow-lg transition duration-300"
 								>
 									Create New Recipe
 								</button>
