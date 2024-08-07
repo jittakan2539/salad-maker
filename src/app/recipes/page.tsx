@@ -109,14 +109,14 @@ export default function Recipe() {
 
 			<section className="flex-1 flex flex-col pt-10 px-10 gap-8">
 				<h1 className="font-extrabold text-neutral-800 text-4xl">Recipe</h1>
-				<main className="bg-white p-5 rounded-xl">
+				<main className="bg-white p-5 rounded-xl flex flex-col items-center md:block">
 					<h2 className="font-extrabold text-neutral-700 text-xl">
 						Your Recipe
 					</h2>
 
 					<section>
 						{recipeList.length > 0 ? (
-							<div className="grid grids-cols-1 md:grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-6">
+							<div className="grid grids-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-4 gap-4 md:gap-6">
 								{recipeList.map((recipe) => (
 									<RecipeCard
 										key={recipe._id}

@@ -217,8 +217,8 @@ export default function EditRecipe({
 				</ul>
 			</nav>
 
-			<section className=" flex-1 flex flex-col pt-10 px-10 gap-8">
-				<h1 className="font-extrabold text-neutral-800 text-4xl">
+			<section className=" flex-1 flex flex-col pt-10 px-0 md:px-10 gap-8">
+				<h1 className="font-extrabold text-neutral-800 text-4xl text-center md:text-start">
 					Edit Recipe
 				</h1>
 				<main className="relative bg-white p-5 rounded-xl flex flex-col gap-5">
@@ -230,7 +230,7 @@ export default function EditRecipe({
 						<FaXmark className="absolute right-5 top-5 text-neutral-600 text-xl hover:cursor-pointer" />
 					</Link>
 
-					<h2 className="font-extrabold text-neutral-500 text-xl">
+					<h2 className="font-extrabold text-neutral-500 text-lg md:text-xl">
 						Your ingredients to make a salad recipe
 					</h2>
 					<section className="flex flex-col">

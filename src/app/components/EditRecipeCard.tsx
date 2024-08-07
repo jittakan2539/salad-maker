@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Image from "next/image";
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus, FaTrash } from "react-icons/fa";
 
 interface Ingredient {
 	_id: string;
@@ -33,18 +33,22 @@ const EditRecipeCard: FC<EditRecipeCardProps> = ({
 				height={100}
 				className="object-cover"
 			/>
-			<section className="flex justify-between w-full">
+			<section className="flex flex-col md:flex-row justify-between w-full">
 				<div>
-					<h2 className="font-bold text-lg">{ingredient.ingredient}</h2>
+					<h2 className="font-bold text-md md:text-lg">
+						{ingredient.ingredient}
+					</h2>
 
-					<div className="flex gap-3 items-center">
+					<div className="flex gap-3 items-center mt-3">
 						<button
 							onClick={onMinusClick}
 							className="bg-orange w-6 h-6 flex items-center justify-center rounded-full p-1"
 						>
 							<FaMinus className=" text-sm text-white" />
 						</button>
-						<p className="text-neutral-400">x {quantity}</p>
+						<p className="text-neutral-400 flex gap-1">
+							<span className="hidden md:block">x</span> {quantity}
+						</p>
 						<button
 							onClick={onPlusClick}
 							className="bg-orange w-6 h-6 flex items-center justify-center rounded-full p-1"
@@ -53,14 +57,20 @@ const EditRecipeCard: FC<EditRecipeCardProps> = ({
 						</button>
 						<button
 							onClick={onDeleteClick}
-							className=" bg-red-500 rounded-xl p-1 px-3"
+							className=" border border-red-500 text-red-500 block md:hidden rounded-xl p-1 px-3"
+						>
+							<FaTrash />
+						</button>
+						<button
+							onClick={onDeleteClick}
+							className=" bg-red-500 rounded-xl hidden md:block p-1 px-3"
 						>
 							<p className="text-white">Delete</p>
 						</button>
 					</div>
 				</div>
 
-				<p className="font-bold text-">
+				<p className="font-bold mt-3">
 					+ {ingredient.calories} <span className="text-orange">Cal</span>
 				</p>
 			</section>
