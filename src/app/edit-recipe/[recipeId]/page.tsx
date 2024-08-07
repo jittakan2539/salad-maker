@@ -6,6 +6,7 @@ import axios from "axios";
 import EditRecipeCard from "@/app/components/EditRecipeCard";
 import { FaXmark } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+import { FaBars } from "react-icons/fa6";
 
 interface Ingredient {
 	_id: string;
@@ -35,6 +36,7 @@ export default function EditRecipe({
 	const [loading, setLoading] = useState(true);
 	const [deletedIngredients, setDeletedIngredients] = useState<string[]>([]);
 	const [updatedSuccess, setUpdatedSuccess] = useState<null | boolean>(null);
+	const [openMenuBar, setOpenMenuBar] = useState<boolean>(false);
 
 	const router = useRouter();
 
@@ -152,19 +154,48 @@ export default function EditRecipe({
 		return 0;
 	};
 
+	const handleOpenMenuBar = () => {
+		setOpenMenuBar(!openMenuBar);
+	};
+
 	return (
-		<div className="flex">
-			<nav className="bg-white w-96 flex flex-col items-center p-10 overflow-hidden gap-20 sticky top-0 h-screen">
-				<h1 className="font-extrabold text-sky-950 text-4xl">
-					SALADMAKER<span className="text-orange">.</span>
-				</h1>
-				<ul className="space-y-10 flex flex-col items-center">
+		<div className="flex flex-col md:flex-row">
+			<nav className="z-50 bg-white w-full md:w-96 flex flex-col md:items-center pt-10 pb-5 px-5 md:px-10 overflow-hidden gap-5 md:gap-20 sticky top-0 md:h-screen">
+				<section className="flex items-center justify-between  md:px-0">
+					<h1 className="font-extrabold text-sky-950 text-lg md:text-4xl">
+						<Link href="/">
+							SALADMAKER<span className="text-orange">.</span>
+						</Link>
+					</h1>
+					<button onClick={handleOpenMenuBar}>
+						<FaBars className="block md:hidden" />
+					</button>
+				</section>
+
+				{openMenuBar && (
+					<ul className="space-y-5 md:space-y-10 flex md:hidden flex-col items-center flex-1 px-5 md:px-0">
+						<li>
+							<Link href="/" className="font-medium text-2xl text-slate-500">
+								<div className="p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
+									Salad Maker
+								</div>
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/recipes"
+								className="font-medium text-2xl text-slate-500"
+							>
+								<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center ">
+									Recipes
+								</div>
+							</Link>
+						</li>
+					</ul>
+				)}
+				<ul className="space-y-5 md:space-y-10 hidden md:flex flex-col items-center flex-1 px-5 md:px-0">
 					<li>
-						<Link
-							onClick={() => setUpdatedSuccess(false)}
-							href="/"
-							className="font-medium text-2xl text-slate-500"
-						>
+						<Link href="/" className="font-medium text-2xl text-slate-500">
 							<div className="p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
 								Salad Maker
 							</div>
@@ -172,12 +203,11 @@ export default function EditRecipe({
 					</li>
 					<li>
 						<Link
-							onClick={() => setUpdatedSuccess(false)}
 							href="/recipes"
 							className="font-medium text-2xl text-slate-500"
 						>
 							<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
-								Edit
+								Recipes
 							</div>
 						</Link>
 					</li>

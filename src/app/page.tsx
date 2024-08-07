@@ -6,6 +6,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import CategoryCard from "@/app/components/CategoryCard";
 import IngredientCard from "./components/IngredientCard";
 import CreateRecipeCard from "./components/CreateRecipeCard";
+import { FaBars } from "react-icons/fa6";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -45,6 +46,7 @@ export default function Home() {
 	const [totalCalories, setTotalCalories] = useState<number>(0);
 	const [openCreateRecipe, setOpenCreateRecipe] = useState(false);
 	const [searchTerm, setSearchTerm] = useState<string>("");
+	const [openMenuBar, setOpenMenuBar] = useState<boolean>(false);
 
 	async function getQueryIngredients(categories: string[], search: string) {
 		try {
@@ -131,13 +133,46 @@ export default function Home() {
 		setSearchTerm(event.target.value);
 	};
 
+	const handleOpenMenuBar = () => {
+		setOpenMenuBar(!openMenuBar);
+	};
+
 	return (
-		<div className="flex">
-			<nav className="bg-white w-96 flex flex-col items-center p-10 overflow-hidden gap-20 sticky top-0 h-screen">
-				<h1 className="font-extrabold text-sky-950 text-4xl">
-					SALADMAKER<span className="text-orange">.</span>
-				</h1>
-				<ul className="space-y-10 flex flex-col items-center">
+		<div className="flex flex-col md:flex-row ">
+			<nav className="z-50 sticky top-0 overflow-hidden md:h-screen bg-white w-full md:w-96 flex flex-col md:items-center pt-10 pb-5 px-5 md:px-10  gap-5 md:gap-20 ">
+				<section className="flex items-center justify-between  md:px-0">
+					<h1 className="font-extrabold text-sky-950 text-lg md:text-4xl">
+						<Link href="/">
+							SALADMAKER<span className="text-orange">.</span>
+						</Link>
+					</h1>
+					<button onClick={handleOpenMenuBar}>
+						<FaBars className="block md:hidden" />
+					</button>
+				</section>
+
+				{openMenuBar && (
+					<ul className="space-y-5 md:space-y-10 flex md:hidden flex-col items-center flex-1 px-5 md:px-0">
+						<li>
+							<Link href="/" className="font-medium text-2xl text-slate-500">
+								<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
+									Salad Maker
+								</div>
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/recipes"
+								className="font-medium text-2xl text-slate-500"
+							>
+								<div className=" p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
+									Recipes
+								</div>
+							</Link>
+						</li>
+					</ul>
+				)}
+				<ul className="space-y-5 md:space-y-10 hidden md:flex flex-col items-center flex-1 px-5 md:px-0">
 					<li>
 						<Link href="/" className="font-medium text-2xl text-slate-500">
 							<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
@@ -150,7 +185,7 @@ export default function Home() {
 							href="/recipes"
 							className="font-medium text-2xl text-slate-500"
 						>
-							<div className="p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
+							<div className=" p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
 								Recipes
 							</div>
 						</Link>
