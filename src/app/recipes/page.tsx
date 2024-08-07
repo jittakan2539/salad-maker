@@ -49,24 +49,24 @@ export default function Recipe() {
 	};
 
 	return (
-		<div className="flex flex-col md:flex-row">
-			<nav className="z-50 bg-white w-full md:w-96 flex flex-col md:items-center pt-10 pb-5 px-5 md:px-10 overflow-hidden gap-5 md:gap-20 sticky top-0 md:h-screen">
-				<section className="flex items-center justify-between  md:px-0">
-					<h1 className="font-extrabold text-sky-950 text-lg md:text-4xl">
+		<div className="flex flex-col xl:flex-row">
+			<nav className="z-50 sticky top-0 overflow-hidden xl:h-screen bg-white w-full xl:w-96 flex flex-col xl:items-center pt-10 pb-5 px-5 md:px-10 gap-5 xl:gap-20 ">
+				<section className="flex items-center justify-between  xl:px-0">
+					<h1 className="font-extrabold text-sky-950 text-xl xl:text-4xl">
 						<Link href="/">
 							SALADMAKER<span className="text-orange">.</span>
 						</Link>
 					</h1>
 					<button onClick={handleOpenMenuBar}>
-						<FaBars className="block md:hidden" />
+						<FaBars className="block xl:hidden" />
 					</button>
 				</section>
 
 				{openMenuBar && (
-					<ul className="space-y-5 md:space-y-10 flex md:hidden flex-col items-center flex-1 px-5 md:px-0">
+					<ul className="z-30 space-y-5 xl:space-y-10 flex xl:hidden flex-col items-center flex-1 px-5 xl:px-0">
 						<li>
 							<Link href="/" className="font-medium text-2xl text-slate-500">
-								<div className="p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
+								<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
 									Salad Maker
 								</div>
 							</Link>
@@ -76,17 +76,17 @@ export default function Recipe() {
 								href="/recipes"
 								className="font-medium text-2xl text-slate-500"
 							>
-								<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center ">
+								<div className=" p-5 px-16 rounded-2xl text-black hover:shadow-xl w-72 text-center">
 									Recipes
 								</div>
 							</Link>
 						</li>
 					</ul>
 				)}
-				<ul className="space-y-5 md:space-y-10 hidden md:flex flex-col items-center flex-1 px-5 md:px-0">
+				<ul className="space-y-5 xl:space-y-10 hidden xl:flex flex-col items-center flex-1 px-5 xl:px-0">
 					<li>
 						<Link href="/" className="font-medium text-2xl text-slate-500">
-							<div className="p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
+							<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
 								Salad Maker
 							</div>
 						</Link>
@@ -96,7 +96,7 @@ export default function Recipe() {
 							href="/recipes"
 							className="font-medium text-2xl text-slate-500"
 						>
-							<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
+							<div className=" p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
 								Recipes
 							</div>
 						</Link>
