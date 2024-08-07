@@ -72,7 +72,7 @@ const CreateRecipeCard: React.FC<CreateRecipeCardProps> = ({
 	return (
 		<>
 			{openCreateRecipe && (
-				<section className="fixed inset-0 flex items-center justify-center bg-black/50 ">
+				<section className="z-50 fixed inset-0 flex items-center justify-center bg-black/50 ">
 					<article className="absolute top-28 bg-white z-50 p-5 rounded-lg w-full md:w-2/3 xl:w-1/3">
 						<section className="relative w-full flex flex-col items-center justify-center gap-3 lg:px-10">
 							<div className="bg-orange w-20 h-20 flex items-center justify-center rounded-full">

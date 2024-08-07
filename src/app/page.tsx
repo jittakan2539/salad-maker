@@ -152,7 +152,7 @@ export default function Home() {
 				</section>
 
 				{openMenuBar && (
-					<ul className="space-y-5 xl:space-y-10 flex xl:hidden flex-col items-center flex-1 px-5 xl:px-0">
+					<ul className="z-30 space-y-5 xl:space-y-10 flex xl:hidden flex-col items-center flex-1 px-5 xl:px-0">
 						<li>
 							<Link href="/" className="font-medium text-2xl text-slate-500">
 								<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
