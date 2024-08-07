@@ -177,7 +177,7 @@ export default function EditRecipe({
 						<li className="w-full flex justify-center">
 							<Link
 								href="/"
-								className="font-medium text-lg md:text-2xl text-slate-500 w-full"
+								className="font-medium text-xl md:text-2xl text-slate-500 w-full"
 							>
 								<div className="p-5 px-16 rounded-2xl text-black hover:shadow-xl  text-center mx-4 xl:mx-8">
 									Salad Maker
@@ -187,7 +187,7 @@ export default function EditRecipe({
 						<li className="w-full flex justify-center">
 							<Link
 								href="/recipes"
-								className="font-medium text-lg md:text-2xl text-slate-500 w-full"
+								className="font-medium text-xl md:text-2xl text-slate-500 w-full"
 							>
 								<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white text-center mx-4 xl:mx-8">
 									Recipes
