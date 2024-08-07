@@ -23,7 +23,7 @@ interface RecipeCardProps {
 const RecipeCard: FC<RecipeCardProps> = ({ recipe, onDeleteClick }) => {
 	return (
 		<>
-			<article className="items-start flex flex-col py-5 justify-between  gap-4 bg-orange rounded-xl px-5 h-80">
+			<article className="items-start flex flex-col py-5  justify-between w-52 md:w-full gap-4 bg-orange rounded-xl px-5 h-64 md:h-80">
 				<div className="bg-white p-3 py-5 w-full rounded-xl flex flex-col">
 					<h3 className="font-semibold text-md font-sarabun ">
 						{recipe.recipeName}
@@ -32,9 +32,9 @@ const RecipeCard: FC<RecipeCardProps> = ({ recipe, onDeleteClick }) => {
 						{recipe.totalCalories} <span className="text-orange ">Cal</span>
 					</p>
 				</div>
-				<div className="flex w-full gap-3">
+				<div className="flex flex-col md:flex-row justify-center items-center w-full gap-3">
 					<button
-						className="bg-white flex gap-2 items-center justify-center w-1/2 p-2 rounded-3xl text-lg  font-bold onClick"
+						className="bg-white flex gap-2 items-center justify-center w-full md:w-1/2 p-2 rounded-2xl md:rounded-3xl text-md md:text-lg  font-bold onClick"
 						onClick={onDeleteClick}
 					>
 						<FaTrash className="text-red-500" />
@@ -42,7 +42,7 @@ const RecipeCard: FC<RecipeCardProps> = ({ recipe, onDeleteClick }) => {
 					</button>
 					<Link
 						href={`/edit-recipe/${recipe._id}`}
-						className="bg-white flex gap-2 items-center justify-center w-1/2 p-2 rounded-3xl text-lg font-bold hover:cursor-pointer"
+						className="bg-white flex gap-2 items-center justify-center w-full md:w-1/2 p-2 rounded-2xl md:rounded-3xl text-md md:text-lg font-bold hover:cursor-pointer"
 					>
 						<FaEdit />
 						<p>Edit</p>

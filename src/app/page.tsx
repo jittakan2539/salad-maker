@@ -156,7 +156,7 @@ export default function Home() {
 						<li className="w-full flex justify-center">
 							<Link
 								href="/"
-								className="font-medium text-lg md:text-2xl text-slate-500 w-full"
+								className="font-medium  md:text-2xl text-slate-500 w-full"
 							>
 								<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white text-center mx-4 xl:mx-8">
 									Salad Maker
@@ -166,7 +166,7 @@ export default function Home() {
 						<li className="w-full flex justify-center">
 							<Link
 								href="/recipes"
-								className="font-medium text-lg md:text-2xl text-slate-500 w-full"
+								className="font-medium  md:text-2xl text-slate-500 w-full"
 							>
 								<div className="p-5 px-16 rounded-2xl text-black hover:shadow-xl  text-center mx-4 xl:mx-8">
 									Recipes
@@ -196,7 +196,7 @@ export default function Home() {
 				</ul>
 			</nav>
 
-			<div className="z-1 flex-1 flex flex-col pt-5 md:pt-10 ">
+			<div className="z-1 flex-1 flex flex-col pt-10 ">
 				<header className="flex flex-col mb-8 px-5 md:px-10">
 					<div className="flex flex-col gap-5 xl:flex-row items-center justify-between mb-0 md:mb-8">
 						<h1 className=" font-extrabold text-neutral-800 text-2xl md:text-4xl">
