@@ -63,20 +63,23 @@ export default function Recipe() {
 				</section>
 
 				{openMenuBar && (
-					<ul className="z-30 space-y-5 xl:space-y-10 flex xl:hidden flex-col items-center flex-1 px-5 xl:px-0">
-						<li>
-							<Link href="/" className="font-medium text-2xl text-slate-500">
-								<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
+					<ul className="z-30 space-y-5 xl:space-y-10 flex xl:hidden flex-col items-center flex-1  xl:px-0">
+						<li className="w-full flex justify-center">
+							<Link
+								href="/"
+								className="font-medium text-lg md:text-2xl text-slate-500 w-full"
+							>
+								<div className="p-5 px-16 rounded-2xl text-black hover:shadow-xl  text-center mx-4 xl:mx-8">
 									Salad Maker
 								</div>
 							</Link>
 						</li>
-						<li>
+						<li className="w-full flex justify-center">
 							<Link
 								href="/recipes"
-								className="font-medium text-2xl text-slate-500"
+								className="font-medium text-lg md:text-2xl text-slate-500 w-full"
 							>
-								<div className=" p-5 px-16 rounded-2xl text-black hover:shadow-xl w-72 text-center">
+								<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white text-center mx-4 xl:mx-8">
 									Recipes
 								</div>
 							</Link>
@@ -86,7 +89,7 @@ export default function Recipe() {
 				<ul className="space-y-5 xl:space-y-10 hidden xl:flex flex-col items-center flex-1 px-5 xl:px-0">
 					<li>
 						<Link href="/" className="font-medium text-2xl text-slate-500">
-							<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
+							<div className="p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
 								Salad Maker
 							</div>
 						</Link>
@@ -96,7 +99,7 @@ export default function Recipe() {
 							href="/recipes"
 							className="font-medium text-2xl text-slate-500"
 						>
-							<div className=" p-5 px-16 rounded-2xl text-black hover:shadow-md w-72 text-center">
+							<div className="bg-amber-400 p-5 px-16 rounded-2xl text-white w-72 text-center">
 								Recipes
 							</div>
 						</Link>
