@@ -15,8 +15,8 @@ This web app, created by Kan Jittapramoulboon in 2024 using the Next.js framewor
 2. Install the required dependencies:
 
    ```bash
-   npm install
    cd salad-maker
+   npm install
    ```
 
 3. Run the project:
