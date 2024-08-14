@@ -115,8 +115,8 @@ export default function Recipe() {
 					</h2>
 
 					<section>
-						{recipeList.length > 0 ? (
-							<div className="grid grids-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-4 gap-4 md:gap-6">
+						{recipeList?.length > 0 ? (
+							<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 pt-4 gap-4 md:gap-6">
 								{recipeList.map((recipe) => (
 									<RecipeCard
 										key={recipe._id}
