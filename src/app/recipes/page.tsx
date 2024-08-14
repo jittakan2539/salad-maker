@@ -28,7 +28,7 @@ export default function Recipe() {
 		try {
 			const response = await axios.get(`/api/recipes`);
 			console.log(response);
-			const { data } = response.data;
+			const { data } = response;
 			setRecipeList(data);
 		} catch (error) {
 			console.log("Failed to get recipe data", error);
